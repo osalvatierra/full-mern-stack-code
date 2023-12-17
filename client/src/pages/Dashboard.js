@@ -70,7 +70,7 @@ const Dashboard = () => {
       <form onSubmit={updateQuote}>
         <input
           type="text"
-          placeholder="Quote"
+          placeholder="Quotes"
           value={tempQuote}
           onChange={(e) => setTempQuote(e.target.value)}
         />
