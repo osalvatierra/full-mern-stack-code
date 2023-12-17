@@ -10,11 +10,14 @@ const Dashboard = () => {
   const [tempQuote, setTempQuote] = useState("");
 
   async function populateQuote() {
-    const req = await fetch("http://localhost:1337/api/quote", {
-      headers: {
-        "x-access-token": localStorage.getItem("token"),
-      },
-    });
+    const req = await fetch(
+      "https://full-mern-stack-server.onrender.com/api/quote",
+      {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      }
+    );
     const data = await req.json();
     console.log(data);
     if (data.status === "ok") {
@@ -38,16 +41,19 @@ const Dashboard = () => {
 
   async function updateQuote(event) {
     event.preventDefault();
-    const req = await fetch("http://localhost:1337/api/quote", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        quote: tempQuote,
-      }),
-    });
+    const req = await fetch(
+      "https://full-mern-stack-server.onrender.com/api/quote",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          quote: tempQuote,
+        }),
+      }
+    );
     const data = await req.json();
 
     if (data.status === "ok") {

@@ -6,17 +6,20 @@ function App() {
 
   async function loginUser(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:1337/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await fetch(
+      "https://full-mern-stack-server.onrender.com/api/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error);
