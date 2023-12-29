@@ -3,10 +3,12 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user.model");
+const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const bycrypt = require("bcryptjs");
 
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect(
   `mongodb+srv://osalvatierra:YhG23YHt6WskEU6@cluster0.9edkxra.mongodb.net/login?retryWrites=true&w=majority`
@@ -41,18 +43,20 @@ app.post("/api/register", async (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   try {
+    // Check if the user exists in the database
     const user = await User.findOne({
       email: req.body.email,
     });
-
-    if (!user) {
-      return { status: "error", error: "Invalid Login" };
-    }
+    console.log(user.email);
 
     const isPasswordValid = await bycrypt.compare(
       req.body.password,
       user.password
     );
+
+    if (!user.email || isPasswordValid) {
+      return { status: "error", error: "Invalid Login" };
+    }
 
     if (isPasswordValid) {
       const token = jwt.sign(
@@ -64,11 +68,20 @@ app.post("/api/login", async (req, res) => {
       );
       console.log(token);
 
+      // Set the JWT token in a cookie using Set-Cookie header
+      res.cookie("x-access-token", token, {
+        httpOnly: true,
+        maxAge: 3600000, // 1 hour in milliseconds
+        secure: process.env.NODE_ENV === "production", // Set to true in production if using HTTPS
+        sameSite: "strict", // Adjust based on your needs
+      });
+      //res.status(200).json({ message: "JWT token set successfully" });
+
       return res.json({ status: "ok", user: token });
     }
-  } catch (err) {
-    console.log(err);
-    res.json({ status: "error", user: false });
+  } catch (error) {
+    console.log(error);
+    return res.json({ status: "error", user: false });
   }
 });
 
