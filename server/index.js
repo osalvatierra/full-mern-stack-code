@@ -54,7 +54,7 @@ app.post("/api/login", async (req, res) => {
       user.password
     );
 
-    if (!user || isPasswordValid) {
+    if (!user || isPasswordValid === false) {
       return { status: "error", error: "Invalid Login" };
     }
 
