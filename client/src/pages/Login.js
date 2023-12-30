@@ -24,7 +24,6 @@ function App() {
     // if (!response.ok) {
     //   throw new Error(data.error);
     // }
-    // console.log(data);
 
     if (data.user) {
       localStorage.setItem("token", data.user);

@@ -47,16 +47,11 @@ app.post("/api/login", async (req, res) => {
     const user = await User.findOne({
       email: req.body.email,
     });
-    console.log(user.email);
 
     const isPasswordValid = await bycrypt.compare(
       req.body.password,
       user.password
     );
-
-    if (!user || isPasswordValid === false) {
-      return { status: "error", error: "Invalid Login" };
-    }
 
     if (isPasswordValid) {
       const token = jwt.sign(
@@ -78,6 +73,8 @@ app.post("/api/login", async (req, res) => {
       //res.status(200).json({ message: "JWT token set successfully" });
 
       return res.json({ status: "ok", user: token });
+    } else {
+      return res.json({ status: "error", user: false });
     }
   } catch (error) {
     console.log(error);
