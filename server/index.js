@@ -19,14 +19,17 @@ db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("Connected successfully");
 });
-app.use(cors());
-app.use(cors(corsOptions));
+
 const corsOptions = {
   origin: "https://full-mern-stack-code.onrender.com/",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Content-Type",
   optionsSuccessStatus: 204,
 };
+
+app.use(cors(corsOptions));
+app.use(cors());
 
 app.get("/api/login", (req, res) => {
   // Access the user information attached to the request object
