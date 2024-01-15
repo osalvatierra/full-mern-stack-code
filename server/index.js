@@ -21,7 +21,7 @@ db.once("open", function () {
 });
 
 const corsOptions = {
-  origin: "https://full-mern-stack-code.onrender.com/",
+  origin: "http://localhost:3000",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
@@ -29,6 +29,27 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 // app.use(cors());
+
+app.get("/api/login", (req, res) => {
+  // Access the user information attached to the request object
+  const user = req.cookies;
+  console.log(user);
+
+  if (!user.xaccesstoken) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  res.json("Welcome to the protected resource, " + user.xaccesstoken);
+});
+
+app.post("/api/logout", (req, res) => {
+  // Access the user information attached to the request object
+  const user = req.cookies;
+  console.log(user);
+
+  res.cookie("xaccesstoken", { expires: Date.now() });
+  res.json("Welcome to the protected resource, " + user.xaccesstoken);
+});
 
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
@@ -49,16 +70,6 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-app.post("/api/logout", (req, res) => {
-  // Access the user information attached to the request object
-  const user = req.cookies;
-  console.log(user);
-
-  res.cookie("xaccesstoken", { expires: Date.now() });
-  res.json("Logging Out, " + user.xaccesstoken);
-  window.location.href = "/login";
-});
-
 app.post("/api/login", async (req, res) => {
   try {
     // Check if the user exists in the database
@@ -71,10 +82,7 @@ app.post("/api/login", async (req, res) => {
       user.password
     );
 
-    if (!isPasswordValid) {
-      window.location.href = "/login";
-      return res.json({ status: "error", user: false });
-    } else if (isPasswordValid) {
+    if (isPasswordValid) {
       const token = jwt.sign(
         {
           name: user.name,
@@ -97,14 +105,14 @@ app.post("/api/login", async (req, res) => {
         path: "/",
       });
 
-      res.setHeader(
-        "Access-Control-Allow-Origin",
-        "https://full-mern-stack-code.onrender.com/"
-      );
+      res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
       res.setHeader("Access-Control-Allow-Credentials", "true");
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
+    } else {
+      window.location.href = "/login";
+      return res.json({ status: "error", user: false });
     }
   } catch (error) {
     console.log(error);
