@@ -21,7 +21,7 @@ db.once("open", function () {
 });
 
 const corsOptions = {
-  origin: "https://full-mern-stack-server.onrender.com/api/login",
+  origin: "https://full-mern-stack-code.onrender.com/",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
@@ -99,7 +99,7 @@ app.post("/api/login", async (req, res) => {
 
       res.setHeader(
         "Access-Control-Allow-Origin",
-        "https://full-mern-stack-server.onrender.com/api/login"
+        "https://full-mern-stack-code.onrender.com/"
       );
       res.setHeader("Access-Control-Allow-Credentials", "true");
 
