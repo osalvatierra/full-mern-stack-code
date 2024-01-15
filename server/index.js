@@ -100,8 +100,8 @@ app.post("/api/login", async (req, res) => {
       res.cookie("xaccesstoken", token, {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
-        secure: false, // Set to true in production if using HTTPS
-        sameSite: "Lax", // Adjust based on your needs
+        secure: true, // Set to true in production if using HTTPS
+        sameSite: "none", // Adjust based on your needs
         path: "/",
       });
 
