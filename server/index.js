@@ -109,7 +109,6 @@ app.post("/api/login", async (req, res) => {
         "Access-Control-Allow-Origin",
         "https://full-mern-stack-code.onrender.com/"
       );
-      res.setHeader("Access-Control-Allow-Credentials", "true");
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
