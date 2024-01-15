@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -6,29 +7,57 @@ function App() {
 
   async function loginUser(event) {
     event.preventDefault();
-    await fetch("https://full-mern-stack-server.onrender.com/api/login", {
-      method: "POST",
+    fetch("https://full-mern-stack-server.onrender.com/api/login", {
+      method: "GET",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        if (data.success) {
-          alert("Login Successful");
-          window.location.href = "/dashboard";
-        } else {
-          window.location.href = "/login";
-          alert("Please check your username and password ");
-        }
+        // Retrieve the JWT token from the cookie
+        const jwtToken = Cookies.get("xaccesstoken");
+
+        console.log("JWT Token:", jwtToken);
       })
       .catch((error) => console.error("Error:", error));
+
+    // const datagg = await gg.json();
+    // console.log(datagg);
+
+    const response = await fetch(
+      "https://full-mern-stack-server.onrender.com/api/login",
+      {
+        method: "POST",
+        credentials: "include", // Include credentials (cookies)
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    // Assuming the server sets the HTTP-only cookie during login
+
+    if (data.success) {
+      // Retrieve the JWT token from the cookie
+      const jwtToken = Cookies.get("xaccesstoken");
+
+      console.log("JWT Token:", jwtToken);
+
+      // localStorage.setItem("token", data.user);
+      alert("Login Successful");
+      window.location.href = "/dashboard";
+    } else {
+      alert("Please check your username and password ");
+    }
   }
   return (
     <div>
