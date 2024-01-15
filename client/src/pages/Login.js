@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { useState } from "react";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -7,7 +6,7 @@ function App() {
 
   async function loginUser(event) {
     event.preventDefault();
-    await fetch("/api/login", {
+    await fetch("https://full-mern-stack-server.onrender.com/api/login", {
       method: "POST",
       credentials: "include",
       headers: {
