@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import Logout from "./Logout";
 
 // import { populate } from "../../../server/models/user.model";
 
@@ -13,31 +13,30 @@ const Dashboard = () => {
     const req = await fetch(
       "https://full-mern-stack-server.onrender.com/api/quote",
       {
+        credentials: "include", // Include credentials (cookies)
         headers: {
-          "x-access-token": localStorage.getItem("token"),
+          "Content-Type": "application/json",
         },
       }
     );
     const data = await req.json();
     console.log(data);
+
     if (data.status === "ok") {
       setQuote(data.quote);
     } else {
-      alert(data.error);
+      history("/login");
+      // alert(data.error);
     }
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const user = jwtDecode(token);
-      if (!user) {
-        localStorage.removeItem("token");
-        history.replace("/login");
-      }
-      populateQuote();
-    }
+    populateQuote();
   }, []);
+
+  //So you have to also include a GET request for /dashboard here and also add in index.js/routes so that you can
+  //Access the cookies via fetch req, res and then routes will take care of the sending on the node server file!!!
+  //Then it should remove when logging out
 
   async function updateQuote(event) {
     event.preventDefault();
@@ -45,9 +44,9 @@ const Dashboard = () => {
       "https://full-mern-stack-server.onrender.com/api/quote",
       {
         method: "POST",
+        credentials: "include", // Include credentials (cookies)
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": localStorage.getItem("token"),
         },
         body: JSON.stringify({
           quote: tempQuote,
@@ -76,6 +75,8 @@ const Dashboard = () => {
         />
         <input type="submit" value={"Update Quote"} />
       </form>
+
+      <Logout type="Submit" value="Login" />
     </div>
   );
 };

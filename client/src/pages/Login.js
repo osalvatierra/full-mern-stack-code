@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -6,32 +7,29 @@ function App() {
 
   async function loginUser(event) {
     event.preventDefault();
-    const response = await fetch(
-      "https://full-mern-stack-server.onrender.com/api/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
-    const data = await response.json();
-    // if (!response.ok) {
-    //   throw new Error(data.error);
-    // }
-
-    if (data.user) {
-      localStorage.setItem("token", data.user);
-      alert("Login Successful");
-      window.location.href = "/dashboard";
-    } else {
-      alert("Please check your username and password ");
-    }
+    await fetch("https://full-mern-stack-server.onrender.com/api/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          alert("Login Successful");
+          window.location.href = "/dashboard";
+        } else {
+          window.location.href = "/login";
+          alert("Please check your username and password ");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
   }
   return (
     <div>

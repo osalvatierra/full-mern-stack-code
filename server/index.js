@@ -20,7 +20,15 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+// app.use(cors());
 
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
@@ -41,6 +49,16 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+app.post("/api/logout", (req, res) => {
+  // Access the user information attached to the request object
+  const user = req.cookies;
+  console.log(user);
+
+  res.cookie("xaccesstoken", { expires: Date.now() });
+  res.json("Logging Out, " + user.xaccesstoken);
+  window.location.href = "/login";
+});
+
 app.post("/api/login", async (req, res) => {
   try {
     // Check if the user exists in the database
@@ -53,28 +71,37 @@ app.post("/api/login", async (req, res) => {
       user.password
     );
 
-    if (isPasswordValid) {
+    if (!isPasswordValid) {
+      window.location.href = "/login";
+      return res.json({ status: "error", user: false });
+    } else if (isPasswordValid) {
       const token = jwt.sign(
         {
           name: user.name,
           email: user.email,
         },
-        "secrete123"
+
+        "secrete123",
+        {
+          expiresIn: "20m",
+        }
       );
       console.log(token);
 
       // Set the JWT token in a cookie using Set-Cookie header
-      res.cookie("x-access-token", token, {
+      res.cookie("xaccesstoken", token, {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
-        secure: process.env.NODE_ENV === "production", // Set to true in production if using HTTPS
-        sameSite: "strict", // Adjust based on your needs
+        secure: false, // Set to true in production if using HTTPS
+        sameSite: "Lax", // Adjust based on your needs
+        path: "/",
       });
-      //res.status(200).json({ message: "JWT token set successfully" });
 
-      return res.json({ status: "ok", user: token });
-    } else {
-      return res.json({ status: "error", user: false });
+      res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+
+      res.json({ success: true });
+      //return res.json({ status: "ok", authToken: token });
     }
   } catch (error) {
     console.log(error);
@@ -83,9 +110,13 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/quote", async (req, res) => {
-  const token = req.headers["x-access-token"];
+  //const token = req.headers["x-access-token"];
+  const authToken = req.cookies.xaccesstoken;
+  if (!authToken) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
   try {
-    const decoded = jwt.verify(token, "secrete123");
+    const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
     const user = await User.findOne({ email: email });
     console.log(user);
@@ -97,9 +128,13 @@ app.get("/api/quote", async (req, res) => {
 });
 
 app.post("/api/quote", async (req, res) => {
-  const token = req.headers["x-access-token"];
+  //const token = req.headers["x-access-token"];
+  const authToken = req.cookies.xaccesstoken;
+  if (!authToken) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
   try {
-    const decoded = jwt.verify(token, "secrete123");
+    const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
     await User.updateOne({ email: email }, { $set: { quote: req.body.quote } });
 
