@@ -11,8 +11,6 @@ function App() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin":
-          "https://full-mern-stack-code.onrender.com/",
       },
       body: JSON.stringify({
         email,

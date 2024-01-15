@@ -28,7 +28,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// app.use(cors());
+app.use(cors());
 
 app.get("/api/login", (req, res) => {
   // Access the user information attached to the request object
