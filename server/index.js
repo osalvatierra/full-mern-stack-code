@@ -21,7 +21,7 @@ db.once("open", function () {
 });
 
 const corsOptions = {
-  origin: "https://full-mern-stack-server.onrender.com/",
+  origin: "https://full-mern-stack-server.onrender.com/api/login",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
