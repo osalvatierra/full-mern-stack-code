@@ -22,7 +22,7 @@ db.once("open", function () {
 
 app.use(
   cors({
-    origin: "https://full-mern-stack-code.onrender.com/",
+    origin: "https://full-mern-stack-server.onrender.com/",
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: "Origin, Content-Type, X-Auth-Token, Authorization",
