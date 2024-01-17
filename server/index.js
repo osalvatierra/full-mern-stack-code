@@ -42,7 +42,7 @@ app.get("/api/login", (req, res) => {
 
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://full-mern-stack-code.onrender.com"
+    "https://full-mern-stack-server.onrender.com/"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -119,7 +119,7 @@ app.post("/api/login", async (req, res) => {
 
       res.setHeader(
         "Access-Control-Allow-Origin",
-        "https://full-mern-stack-code.onrender.com"
+        "https://full-mern-stack-server.onrender.com/"
       );
       res.setHeader(
         "Access-Control-Allow-Methods",
