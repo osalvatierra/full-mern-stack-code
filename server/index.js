@@ -40,6 +40,17 @@ app.get("/api/login", (req, res) => {
     return res.status(401).send("Unauthorized");
   }
 
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,PUT,PATCH,POST,DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.status(200).send(/* Your response */);
+
   res.json("Welcome to the protected resource, " + user.xaccesstoken);
 });
 
