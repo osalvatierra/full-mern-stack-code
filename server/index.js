@@ -30,18 +30,6 @@ app.use(
   })
 );
 
-app.get("/api/login", (req, res) => {
-  // Access the user information attached to the request object
-  const user = req.cookies;
-  console.log(user);
-
-  if (!user.xaccesstoken) {
-    return res.status(401).send("Unauthorized");
-  }
-
-  res.json("Welcome to the protected resource, " + user.xaccesstoken);
-});
-
 app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   const user = req.cookies;
