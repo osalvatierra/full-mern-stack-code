@@ -112,7 +112,7 @@ app.post("/api/login", async (req, res) => {
       res.cookie("xaccesstoken", token, {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
-        secure: true, // Set to true in production if using HTTPS
+        secure: false, // Set to true in production if using HTTPS
         sameSite: "strict", // Adjust based on your needs
         path: "/",
       });
@@ -132,11 +132,10 @@ app.post("/api/login", async (req, res) => {
       //return res.json({ status: "ok", authToken: token });
     } else {
       window.location.href = "/login";
-      return res.json({ status: "error", user: false });
     }
   } catch (error) {
     console.log(error);
-    return res.json({ status: "error", user: false });
+    return { status: "error", user: false };
   }
 });
 
