@@ -29,7 +29,6 @@ app.use(
     optionsSuccessStatus: 204,
   })
 );
-app.options("*", cors());
 
 app.get("/api/login", (req, res) => {
   // Access the user information attached to the request object
@@ -39,21 +38,6 @@ app.get("/api/login", (req, res) => {
   if (!user.xaccesstoken) {
     return res.status(401).send("Unauthorized");
   }
-
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://full-mern-stack-code.onrender.com"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,PUT,PATCH,POST,DELETE"
-  );
-
-  res.setHeader(
-    "Access-Control-Request-Method",
-    "GET,HEAD,PUT,PATCH,POST,DELETE"
-  );
-  res.status(200).send(/* Your response */);
 
   res.json("Welcome to the protected resource, " + user.xaccesstoken);
 });
@@ -116,34 +100,20 @@ app.post("/api/login", async (req, res) => {
       res.cookie("xaccesstoken", token, {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
-        secure: false, // Set to true in production if using HTTPS
-        sameSite: "none", // Adjust based on your needs
+        secure: true, // Set to true in production if using HTTPS
+        sameSite: "strict", // Adjust based on your needs
         path: "/",
       });
-
-      res.setHeader(
-        "Access-Control-Allow-Origin",
-        "https://full-mern-stack-code.onrender.com"
-      );
-      res.setHeader(
-        "Access-Control-Request-Method",
-        "GET,HEAD,PUT,PATCH,POST,DELETE"
-      );
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET,HEAD,PUT,PATCH,POST,DELETE"
-      );
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-      res.status(200).send(/* Your response */);
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
     } else {
       window.location.href = "/login";
+      return res.json({ status: "error", user: false });
     }
   } catch (error) {
     console.log(error);
-    return { status: "error", user: false };
+    return res.json({ status: "error", user: false });
   }
 });
 
