@@ -106,6 +106,17 @@ app.post("/api/login", async (req, res) => {
         path: "/",
       });
 
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://full-mern-stack-code.onrender.com"
+      );
+      res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET,HEAD,PUT,PATCH,POST,DELETE"
+      );
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+      res.status(200).send(/* Your response */);
+
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
     } else {
