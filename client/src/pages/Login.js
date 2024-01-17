@@ -9,6 +9,7 @@ function App() {
     event.preventDefault();
     fetch("https://full-mern-stack-server.onrender.com/api/login", {
       method: "GET",
+      mode: "cors",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -31,6 +32,7 @@ function App() {
       "https://full-mern-stack-server.onrender.com/api/login",
       {
         method: "POST",
+        mode: "cors",
         credentials: "include", // Include credentials (cookies)
         headers: {
           "Content-Type": "application/json",

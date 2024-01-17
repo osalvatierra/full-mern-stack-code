@@ -48,7 +48,11 @@ app.get("/api/login", (req, res) => {
     "Access-Control-Allow-Methods",
     "GET,HEAD,PUT,PATCH,POST,DELETE"
   );
-  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  res.setHeader(
+    "Access-Control-Request-Method",
+    "GET,HEAD,PUT,PATCH,POST,DELETE"
+  );
   res.status(200).send(/* Your response */);
 
   res.json("Welcome to the protected resource, " + user.xaccesstoken);
@@ -120,6 +124,10 @@ app.post("/api/login", async (req, res) => {
       res.setHeader(
         "Access-Control-Allow-Origin",
         "https://full-mern-stack-code.onrender.com"
+      );
+      res.setHeader(
+        "Access-Control-Request-Method",
+        "GET,HEAD,PUT,PATCH,POST,DELETE"
       );
       res.setHeader(
         "Access-Control-Allow-Methods",
