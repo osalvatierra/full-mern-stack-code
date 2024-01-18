@@ -21,7 +21,7 @@ db.once("open", function () {
 });
 
 const corsOptions = {
-  origin: "https://full-mern-stack-code.onrender.com/",
+  origin: "https://full-mern-stack-code.onrender.com",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Origin, Content-Type, X-Auth-Token",
@@ -29,18 +29,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-app.get("/api/login", (req, res) => {
-  // Access the user information attached to the request object
-  const user = req.cookies;
-  console.log(user);
-
-  if (!user.xaccesstoken) {
-    return res.status(401).send("Unauthorized");
-  }
-
-  res.json("Welcome to the protected resource, " + user.xaccesstoken);
-});
 
 app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
@@ -101,13 +89,13 @@ app.post("/api/login", async (req, res) => {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
         secure: true, // Set to true in production if using HTTPS
-        sameSite: "strict", // Adjust based on your needs
+        sameSite: "none", // Adjust based on your needs
         path: "/",
       });
 
       res.setHeader(
         "Access-Control-Allow-Origin",
-        "https://full-mern-stack-code.onrender.com/"
+        "https://full-mern-stack-code.onrender.com"
       );
 
       res.json({ success: true });
