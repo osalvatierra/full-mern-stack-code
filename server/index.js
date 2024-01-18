@@ -36,7 +36,7 @@ app.post("/api/logout", (req, res) => {
   console.log(user);
 
   res.cookie("xaccesstoken", {
-    expires: new Date(0),
+    expires: Date.now(),
     httpOnly: true,
     secure: true,
     sameSite: "none",
