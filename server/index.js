@@ -35,8 +35,13 @@ app.post("/api/logout", (req, res) => {
   const user = req.cookies;
   console.log(user);
 
-  res.cookie("xaccesstoken", { expires: Date.now() });
-  res.json("Welcome to the protected resource, " + user.xaccesstoken);
+  res.cookie("xaccesstoken", {
+    expires: new Date(0),
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    path: "/",
+  });
 });
 
 app.post("/api/register", async (req, res) => {
