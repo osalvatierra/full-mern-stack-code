@@ -7,7 +7,7 @@ function App() {
 
   async function loginUser(event) {
     event.preventDefault();
-    fetch("https://full-mern-stack-server.onrender.com/api/login", {
+    await fetch("https://full-mern-stack-server.onrender.com/api/login", {
       method: "POST",
       mode: "cors",
       credentials: "include",

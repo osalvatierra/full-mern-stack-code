@@ -42,7 +42,7 @@ app.post("/api/logout", (req, res) => {
     sameSite: "none",
     path: "/",
   });
-  res.json("You are Now Logged Out,");
+  res.json({ status: "true" });
 });
 
 app.post("/api/register", async (req, res) => {
