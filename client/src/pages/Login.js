@@ -5,7 +5,7 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function loginUser(event) {
+  async function loginUser() {
     //   event.preventDefault();
     //   fetch("https://full-mern-stack-server.onrender.com/api/login", {
     //     method: "POST",

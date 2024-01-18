@@ -20,15 +20,27 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-app.use(
-  cors({
-    origin: "https://full-mern-stack-code.onrender.com",
-    credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Origin, Content-Type, X-Auth-Token, Authorization",
-    optionsSuccessStatus: 204,
-  })
-);
+const corsOptions = {
+  origin: "https://full-mern-stack-code.onrender.com/",
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Origin, Content-Type, X-Auth-Token",
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
+app.get("/api/login", (req, res) => {
+  // Access the user information attached to the request object
+  const user = req.cookies;
+  console.log(user);
+
+  if (!user.xaccesstoken) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  res.json("Welcome to the protected resource, " + user.xaccesstoken);
+});
 
 app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
@@ -92,6 +104,11 @@ app.post("/api/login", async (req, res) => {
         sameSite: "strict", // Adjust based on your needs
         path: "/",
       });
+
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://full-mern-stack-code.onrender.com/"
+      );
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
