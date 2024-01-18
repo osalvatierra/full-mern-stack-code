@@ -9,6 +9,24 @@ const Dashboard = () => {
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
 
+  async function detectLogout(e) {
+    e.preventDefault();
+    await fetch("https://full-mern-stack-server.onrender.com/api/logout", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.status) {
+          window.location.href = "/login";
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
   async function populateQuote() {
     const req = await fetch(
       "https://full-mern-stack-server.onrender.com/api/quote",
@@ -32,6 +50,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     populateQuote();
+    detectLogout();
   }, []);
 
   //So you have to also include a GET request for /dashboard here and also add in index.js/routes so that you can
