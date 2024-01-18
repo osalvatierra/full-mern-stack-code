@@ -3,7 +3,7 @@ import React from "react";
 const Logout = () => {
   async function logout(e) {
     e.preventDefault();
-    fetch("https://full-mern-stack-server.onrender.com/api/logout", {
+    await fetch("https://full-mern-stack-server.onrender.com/api/logout", {
       method: "POST",
       credentials: "include",
       headers: {

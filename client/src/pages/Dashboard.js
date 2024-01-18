@@ -76,7 +76,7 @@ const Dashboard = () => {
         <input type="submit" value={"Update Quote"} />
       </form>
 
-      <Logout type="Submit" value="Login" />
+      <Logout type="Submit" value="Logout" />
     </div>
   );
 };
