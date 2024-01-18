@@ -9,8 +9,7 @@ const Dashboard = () => {
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
 
-  async function detectLogout(e) {
-    e.preventDefault();
+  async function detectLogout() {
     await fetch("https://full-mern-stack-server.onrender.com/api/logout", {
       method: "POST",
       credentials: "include",
