@@ -36,7 +36,7 @@ app.post("/api/logout", (req, res) => {
   console.log(user);
 
   res.cookie("xaccesstoken", {
-    expires: new Date(),
+    expires: new Date(0),
     httpOnly: true,
     secure: true,
     sameSite: "none",
@@ -98,11 +98,6 @@ app.post("/api/login", async (req, res) => {
         sameSite: "none", // Adjust based on your needs
         path: "/",
       });
-
-      res.setHeader(
-        "Access-Control-Allow-Origin",
-        "https://full-mern-stack-code.onrender.com"
-      );
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
