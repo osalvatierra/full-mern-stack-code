@@ -36,10 +36,10 @@ app.post("/api/logout", (req, res) => {
   console.log(user);
 
   res.cookie("xaccesstoken", {
-    expires: new Date(0),
+    expires: new Date(),
     httpOnly: true,
     secure: true,
-    sameSite: "strict",
+    sameSite: "none",
     path: "/",
   });
   res.json("You are Now Logged Out,");
