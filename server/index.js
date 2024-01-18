@@ -34,14 +34,10 @@ app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   const user = req.cookies;
   console.log(user);
+  res.clearCookie(xaccesstoken);
 
-  res.cookie("xaccesstoken", {
-    expires: Date.now(),
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    path: "/",
-  });
+  // Optionally, redirect to a different page after logout
+  res.redirect("/login");
   res.json({ status: "true" });
 });
 
