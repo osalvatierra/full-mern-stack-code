@@ -38,7 +38,7 @@ app.post("/api/logout", (req, res) => {
 
   // Optionally, redirect to a different page after logout
   res.redirect("/login");
-  res.json({ status: "true" });
+  res.json("Logged Out");
 });
 
 app.post("/api/register", async (req, res) => {
