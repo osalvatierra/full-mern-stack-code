@@ -101,7 +101,6 @@ app.post("/api/login", async (req, res) => {
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
     } else {
-      window.location.href = "/login";
       return res.json({ status: "error", user: false });
     }
   } catch (error) {
