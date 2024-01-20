@@ -19,7 +19,9 @@ function Logout() {
   }
   return (
     <div>
-      <button onClick={logout}>Logout </button>
+      <form onSubmit={logout}>
+        <input value="submit" type="submit" placeholder="Submit" />
+      </form>
     </div>
   );
 }
