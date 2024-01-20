@@ -112,9 +112,10 @@ app.post("/api/login", async (req, res) => {
 app.get("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
-  if (!authToken) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+  console.log(authToken);
+  // if (!authToken) {
+  //   return res.status(401).json({ error: "Unauthorized" });
+  // }
   try {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
@@ -130,9 +131,7 @@ app.get("/api/quote", async (req, res) => {
 app.post("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
-  if (!authToken) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+
   try {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
