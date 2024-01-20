@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function Logout() {
+const Logout = () => {
   async function logout(e) {
     e.preventDefault();
     await fetch("https://full-mern-stack-server.onrender.com/api/logout", {
@@ -17,13 +17,23 @@ function Logout() {
       })
       .catch((error) => console.error("Error:", error));
   }
+
+  useEffect(() => {
+    logout();
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    logout();
+  };
+
   return (
     <div>
-      <form onSubmit={logout}>
-        <input value="submit" type="submit" placeholder="Submit" />
+      <form onSubmit={handleSubmit}>
+        <input value="submit" type="submit" placeholder="Logout" />
       </form>
     </div>
   );
-}
+};
 
 export default Logout;
