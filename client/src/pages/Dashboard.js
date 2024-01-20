@@ -19,7 +19,7 @@ const Dashboard = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (!data.status) {
+        if (data.status) {
           window.location.href = "/login";
         }
       })

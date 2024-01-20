@@ -1,10 +1,10 @@
 import React from "react";
 
-const Logout = () => {
+function Logout() {
   async function logout(e) {
     e.preventDefault();
     await fetch("https://full-mern-stack-server.onrender.com/api/logout", {
-      method: "POST",
+      method: "GET",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -21,9 +21,9 @@ const Logout = () => {
   }
   return (
     <div>
-      <button onClick={Logout}>Logout </button>
+      <button onClick={logout}>Logout </button>
     </div>
   );
-};
+}
 
 export default Logout;

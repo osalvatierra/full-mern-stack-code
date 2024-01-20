@@ -30,7 +30,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.post("/api/logout", (req, res) => {
+app.get("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   const user = req.cookies;
   console.log(user);
