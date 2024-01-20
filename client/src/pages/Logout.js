@@ -1,10 +1,10 @@
 import React from "react";
 
 function Logout() {
-  async function logout(e) {
+  function logout(e) {
     e.preventDefault();
-    await fetch("https://full-mern-stack-server.onrender.com/api/logout", {
-      method: "GET",
+    fetch("https://full-mern-stack-server.onrender.com/api/logout", {
+      method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",

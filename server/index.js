@@ -30,14 +30,13 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get("/api/logout", (req, res) => {
+app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   const user = req.cookies;
   console.log(user);
-  res.clearCookie(xaccesstoken);
 
-  // Optionally, redirect to a different page after logout
-  res.json({ success: true });
+  res.cookie("xaccesstoken", { expires: Date.now() });
+  res.json("Welcome to the protected resource, " + user.xaccesstoken);
 });
 
 app.post("/api/register", async (req, res) => {
@@ -90,9 +89,14 @@ app.post("/api/login", async (req, res) => {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
         secure: true, // Set to true in production if using HTTPS
-        sameSite: "none", // Adjust based on your needs
+        sameSite: "strict", // Adjust based on your needs
         path: "/",
       });
+
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://full-mern-stack-code.onrender.com"
+      );
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
