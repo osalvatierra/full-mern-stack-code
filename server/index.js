@@ -37,7 +37,6 @@ app.get("/api/logout", (req, res) => {
   res.clearCookie(xaccesstoken);
 
   // Optionally, redirect to a different page after logout
-  res.redirect("/login");
   res.json({ success: true });
 });
 
