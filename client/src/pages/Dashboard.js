@@ -13,6 +13,7 @@ const Dashboard = () => {
     const req = await fetch(
       "https://full-mern-stack-server.onrender.com/api/quote",
       {
+        method: "GET",
         credentials: "include", // Include credentials (cookies)
         headers: {
           "Content-Type": "application/json",
