@@ -104,9 +104,9 @@ app.get("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
   console.log(authToken);
-  // if (!authToken) {
-  //   return res.status(401).json({ error: "Unauthorized" });
-  // }
+  if (!authToken) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
   try {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
@@ -122,7 +122,9 @@ app.get("/api/quote", async (req, res) => {
 app.post("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
-
+  if (!authToken) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
   try {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
@@ -135,14 +137,14 @@ app.post("/api/quote", async (req, res) => {
   }
 });
 
-app.post("/api/logout", (req, res) => {
-  // Access the user information attached to the request object
-  const user = req.cookies;
-  console.log(user);
+// app.post("/api/logout", (req, res) => {
+//   // Access the user information attached to the request object
+//   const user = req.cookies;
+//   console.log(user);
 
-  res.cookie("xaccesstoken", { expires: Date.now() });
-  res.json("Welcome to the protected resource, " + user.xaccesstoken);
-});
+//   res.cookie("xaccesstoken", { expires: Date.now() });
+//   res.json("Welcome to the protected resource, " + user.xaccesstoken);
+// });
 
 app.listen(1337, () => {
   console.log("Server started on 1337");
