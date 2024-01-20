@@ -116,15 +116,17 @@ app.get("/api/quote", async (req, res) => {
   // if (!authToken) {
   //   return res.status(401).json({ error: "Unauthorized" });
   // }
-  try {
-    const decoded = jwt.verify(authToken, "secrete123");
-    const email = decoded.email;
-    const user = await User.findOne({ email: email });
-    console.log(user);
-    return res.json({ status: "ok", quote: user.quote });
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", error: "invalid token" });
+  if (authToken) {
+    try {
+      const decoded = jwt.verify(authToken, "secrete123");
+      const email = decoded.email;
+      const user = await User.findOne({ email: email });
+      console.log(user);
+      return res.json({ status: "ok", quote: user.quote });
+    } catch (error) {
+      console.log(error);
+      res.json({ status: "error", error: "invalid token" });
+    }
   }
 });
 
