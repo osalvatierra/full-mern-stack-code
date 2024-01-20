@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 
 const Logout = () => {
-  async function logout(e) {
-    e.preventDefault();
+  async function logout() {
     await fetch("https://full-mern-stack-server.onrender.com/api/logout", {
       method: "POST",
       credentials: "include",

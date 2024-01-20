@@ -30,15 +30,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.post("/api/logout", (req, res) => {
-  // Access the user information attached to the request object
-  const user = req.cookies;
-  console.log(user);
-
-  res.cookie("xaccesstoken", { expires: Date.now() });
-  res.json("Welcome to the protected resource, " + user.xaccesstoken);
-});
-
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
 
@@ -144,6 +135,15 @@ app.post("/api/quote", async (req, res) => {
     console.log(error);
     res.json({ status: "error", error: "invalid token" });
   }
+});
+
+app.post("/api/logout", (req, res) => {
+  // Access the user information attached to the request object
+  const user = req.cookies;
+  console.log(user);
+
+  res.cookie("xaccesstoken", { expires: Date.now() });
+  res.json("Welcome to the protected resource, " + user.xaccesstoken);
 });
 
 app.listen(1337, () => {
