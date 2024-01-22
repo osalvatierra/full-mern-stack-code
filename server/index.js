@@ -112,6 +112,10 @@ app.get("/api/quote", async (req, res) => {
     const email = decoded.email;
     const user = await User.findOne({ email: email });
     console.log(user);
+    res.setHeader(
+      "Access-Control-Allow-Origin",
+      "https://full-mern-stack-code.onrender.com"
+    );
     return res.json({ status: "ok", quote: user.quote });
   } catch (error) {
     console.log(error);
