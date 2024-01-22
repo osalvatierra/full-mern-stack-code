@@ -12,7 +12,7 @@ const Logout = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // window.location.href = "/login";
+        window.location.href = "/login";
       })
       .catch((error) => console.error("Error:", error));
   }
