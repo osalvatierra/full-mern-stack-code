@@ -143,7 +143,8 @@ app.post("/api/logout", (req, res) => {
   console.log(user);
 
   res.cookie("xaccesstoken", { expires: Date.now() });
-  res.json("Welcome to the protected resource, " + user.xaccesstoken);
+
+  return res.json({ status: "ok" });
 });
 
 app.listen(1337, () => {

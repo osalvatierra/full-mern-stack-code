@@ -11,8 +11,12 @@ const Logout = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        window.location.href = "/login";
+        if (data.success) {
+          alert("Logout Successful");
+          window.location.href = "/dashboard";
+        } else {
+          console.log("Still Logged in");
+        }
       })
       .catch((error) => console.error("Error:", error));
   }
