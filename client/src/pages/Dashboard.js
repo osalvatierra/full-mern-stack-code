@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     populateQuote();
-  });
+  }, []);
 
   //So you have to also include a GET request for /dashboard here and also add in index.js/routes so that you can
   //Access the cookies via fetch req, res and then routes will take care of the sending on the node server file!!!
@@ -76,8 +76,6 @@ const Dashboard = () => {
         />
         <input type="submit" value={"Update Quote"} />
       </form>
-
-      {/* <Logout type="Logout" value="Logout" /> */}
     </div>
   );
 };

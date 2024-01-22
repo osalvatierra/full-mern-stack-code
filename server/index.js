@@ -80,7 +80,7 @@ app.post("/api/login", async (req, res) => {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
         secure: true, // Set to true in production if using HTTPS
-        sameSite: "strict", // Adjust based on your needs
+        sameSite: "flex", // Adjust based on your needs
         path: "/",
       });
 
@@ -112,10 +112,6 @@ app.get("/api/quote", async (req, res) => {
     const email = decoded.email;
     const user = await User.findOne({ email: email });
     console.log(user);
-    res.setHeader(
-      "Access-Control-Allow-Origin",
-      "https://full-mern-stack-code.onrender.com"
-    );
     return res.json({ status: "ok", quote: user.quote });
   } catch (error) {
     console.log(error);
