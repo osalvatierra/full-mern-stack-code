@@ -141,15 +141,9 @@ app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   const authToken = req.cookies.xaccesstoken;
 
-  try {
-    res.clearCookie(authToken);
-    if (!authToken) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", error: "invalid token" });
-  }
+  res.clearCookie(authToken);
+  res.status(200).json({ message: "Logout successful" });
+  res.redirect("/login");
 });
 
 app.listen(1337, () => {

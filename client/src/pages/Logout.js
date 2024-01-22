@@ -2,22 +2,30 @@ import React, { useEffect } from "react";
 
 const Logout = () => {
   async function logout() {
-    await fetch("https://full-mern-stack-server.onrender.com/api/logout", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          window.location.href = "/login";
-        } else {
-          console.log("Still Logged in");
+    try {
+      const response = await fetch(
+        "https://full-mern-stack-server.onrender.com/api/logout",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            // Include any additional headers if needed (e.g., authentication token)
+          },
         }
-      })
-      .catch((error) => console.error("Error:", error));
+      );
+
+      if (response.ok) {
+        // Optionally handle success (e.g., redirect to login page)
+        window.location.href = "/login";
+      } else {
+        // Handle unsuccessful logout (e.g., display an error message)
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error("Logout failed", error);
+    }
   }
 
   useEffect(() => {
