@@ -140,12 +140,12 @@ app.post("/api/quote", async (req, res) => {
 app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   const authToken = req.cookies.xaccesstoken;
-  if (!authToken) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+
   try {
-    res.cookie("xaccesstoken", { expires: Date.now() });
-    return res.json({ status: "ok" });
+    res.clearCookie(authToken);
+    if (!authToken) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
   } catch (error) {
     console.log(error);
     res.json({ status: "error", error: "invalid token" });
