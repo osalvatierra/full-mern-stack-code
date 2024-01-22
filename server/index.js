@@ -139,6 +139,7 @@ app.post("/api/quote", async (req, res) => {
 
 app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
+  const authToken = req.cookies.xaccesstoken;
   if (!authToken) {
     return res.status(401).json({ error: "Unauthorized" });
   }
