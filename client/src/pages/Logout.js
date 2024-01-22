@@ -28,10 +28,6 @@ const Logout = () => {
     }
   }
 
-  useEffect(() => {
-    logout();
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     logout();
