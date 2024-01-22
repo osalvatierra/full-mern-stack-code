@@ -80,7 +80,7 @@ app.post("/api/login", async (req, res) => {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
         secure: true, // Set to true in production if using HTTPS
-        sameSite: "flex", // Adjust based on your needs
+        sameSite: "none", // Adjust based on your needs
         path: "/",
       });
 
