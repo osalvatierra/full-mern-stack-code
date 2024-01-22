@@ -12,8 +12,7 @@ const Logout = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          alert("Logout Successful");
-          window.location.href = "/dashboard";
+          window.location.href = "/login";
         } else {
           console.log("Still Logged in");
         }

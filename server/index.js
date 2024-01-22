@@ -139,12 +139,16 @@ app.post("/api/quote", async (req, res) => {
 
 app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
-  const user = req.cookies;
-  console.log(user);
-
-  res.cookie("xaccesstoken", { expires: Date.now() });
-
-  return res.json({ status: "ok" });
+  if (!authToken) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  try {
+    res.cookie("xaccesstoken", { expires: Date.now() });
+    return res.json({ status: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
+  }
 });
 
 app.listen(1337, () => {
