@@ -29,7 +29,7 @@ const Logout = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input value="submit" type="submit" placeholder="Logout" />
+        <input value="Logout" type="submit" />
       </form>
     </div>
   );

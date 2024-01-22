@@ -137,14 +137,14 @@ app.post("/api/quote", async (req, res) => {
   }
 });
 
-// app.post("/api/logout", (req, res) => {
-//   // Access the user information attached to the request object
-//   const user = req.cookies;
-//   console.log(user);
+app.post("/api/logout", (req, res) => {
+  // Access the user information attached to the request object
+  const user = req.cookies;
+  console.log(user);
 
-//   res.cookie("xaccesstoken", { expires: Date.now() });
-//   res.json("Welcome to the protected resource, " + user.xaccesstoken);
-// });
+  res.cookie("xaccesstoken", { expires: Date.now() });
+  res.json("Welcome to the protected resource, " + user.xaccesstoken);
+});
 
 app.listen(1337, () => {
   console.log("Server started on 1337");
