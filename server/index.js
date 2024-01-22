@@ -137,7 +137,7 @@ app.post("/api/quote", async (req, res) => {
   }
 });
 
-app.post("/api/logout", (req, res) => {
+app.post("/dashboard", (req, res) => {
   // Access the user information attached to the request object
   const authToken = req.cookies.xaccesstoken;
 
