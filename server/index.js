@@ -6,6 +6,9 @@ const User = require("./models/user.model");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const bycrypt = require("bcryptjs");
+const morgan = require("morgan");
+// Use morgan for logging
+app.use(morgan("combined"));
 
 app.use(express.json());
 app.use(cookieParser());
