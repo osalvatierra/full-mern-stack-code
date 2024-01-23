@@ -141,7 +141,8 @@ app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   const authToken = req.cookies.xaccesstoken;
 
-  res.cookie(authToken, { expires: Date.now() });
+  res.cookie(authToken, { expires: Date.now(0) });
+  res.clearCookie(authToken, { path: "/" });
   res.status(200).json({ message: "Logout successful" });
   res.redirect("/login");
 });
