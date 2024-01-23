@@ -137,11 +137,11 @@ app.post("/api/quote", async (req, res) => {
   }
 });
 
-app.post("/dashboard", (req, res) => {
+app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   const authToken = req.cookies.xaccesstoken;
 
-  res.cookie("xaccesstoken", { expires: Date.now() });
+  res.cookie(authToken, { expires: Date.now() });
   res.status(200).json({ message: "Logout successful" });
   res.redirect("/login");
 });

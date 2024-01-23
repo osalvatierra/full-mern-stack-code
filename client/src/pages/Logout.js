@@ -4,7 +4,7 @@ const Logout = () => {
   async function logout() {
     try {
       const response = await fetch(
-        "https://full-mern-stack-server.onrender.com/dashboard",
+        "https://full-mern-stack-server.onrender.com/api/logout",
         {
           method: "POST",
           credentials: "include",
