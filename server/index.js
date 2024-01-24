@@ -81,8 +81,6 @@ app.post("/api/login", async (req, res) => {
       );
       console.log(token);
 
-      res.setHeader("Cache-Control", "no-store");
-
       // Set the JWT token in a cookie using Set-Cookie header
       res.cookie("xaccesstoken", token, {
         httpOnly: true,
@@ -104,7 +102,7 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/quote", async (req, res) => {
-  //const token = req.headers["x-access-token"];
+  res.setHeader("Cache-Control", "no-store");
   const authToken = req.cookies.xaccesstoken;
   console.log(authToken);
   if (!authToken) {
