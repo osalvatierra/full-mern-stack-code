@@ -89,7 +89,7 @@ app.post("/api/login", async (req, res) => {
         sameSite: "none", // Adjust based on your needs
         path: "/",
       });
-      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Cache-Control", "no-store");
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
