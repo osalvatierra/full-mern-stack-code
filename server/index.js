@@ -33,6 +33,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+let inOtherRoute = false;
+
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
 
@@ -53,6 +55,7 @@ app.post("/api/register", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
+  inOtherRoute = true;
   try {
     // Check if the user exists in the database
     const user = await User.findOne({
@@ -100,11 +103,11 @@ app.post("/api/login", async (req, res) => {
 
 app.get("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
-  // const authToken = req.cookies.xaccesstoken;
-  // console.log(authToken);
-  // if (!authToken) {
-  //   return res.status(401).json({ error: "Unauthorized" });
-  // }
+  const authToken = req.cookies.xaccesstoken;
+  console.log(authToken);
+  if (!authToken && !inOtherRoute) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
   try {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
@@ -119,10 +122,10 @@ app.get("/api/quote", async (req, res) => {
 
 app.post("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
-  // const authToken = req.cookies.xaccesstoken;
-  // if (!authToken) {
-  //   return res.status(401).json({ error: "Unauthorized" });
-  // }
+  const authToken = req.cookies.xaccesstoken;
+  if (!authToken && !inOtherRoute) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
   try {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
@@ -138,6 +141,7 @@ app.post("/api/quote", async (req, res) => {
 app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   console.log("Logout route called");
+  inOtherRoute = false;
 
   const authToken = req.cookies.xaccesstoken;
 
