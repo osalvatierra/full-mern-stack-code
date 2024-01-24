@@ -104,7 +104,7 @@ app.get("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
   console.log(authToken);
-  if (!authToken || !inOtherRoute) {
+  if (!authToken || inOtherRoute === true) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
@@ -122,7 +122,7 @@ app.get("/api/quote", async (req, res) => {
 app.post("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
-  if (!authToken || !inOtherRoute) {
+  if (!authToken || inOtherRoute === true) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
