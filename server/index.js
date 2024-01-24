@@ -55,7 +55,7 @@ app.post("/api/register", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
-  inOtherRoute === false;
+  inOtherRoute = false;
   try {
     // Check if the user exists in the database
     const user = await User.findOne({
