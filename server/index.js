@@ -114,8 +114,10 @@ app.get("/api/quote", async (req, res) => {
     const user = await User.findOne({ email: email });
     console.log(user);
 
-    if (inOtherRoute === true)
+    if (inOtherRoute === true) {
+      res.clearCookie(authToken, { path: "/" });
       return res.status(401).json({ error: "Unauthorized" });
+    }
     return res.json({ status: "ok", quote: user.quote });
   } catch (error) {
     console.log(error);
@@ -133,8 +135,10 @@ app.post("/api/quote", async (req, res) => {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
     await User.updateOne({ email: email }, { $set: { quote: req.body.quote } });
-    if (inOtherRoute === true)
+    if (inOtherRoute === true) {
+      res.clearCookie(authToken, { path: "/" });
       return res.status(401).json({ error: "Unauthorized" });
+    }
     return res.json({ status: "ok" });
   } catch (error) {
     console.log(error);
