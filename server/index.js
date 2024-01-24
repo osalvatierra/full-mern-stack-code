@@ -105,7 +105,7 @@ app.get("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
   console.log(authToken);
-  if (!authToken || inOtherRoute === true) {
+  if (!authToken) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
@@ -113,6 +113,9 @@ app.get("/api/quote", async (req, res) => {
     const email = decoded.email;
     const user = await User.findOne({ email: email });
     console.log(user);
+
+    if (inOtherRoute === true)
+      return res.status(401).json({ error: "Unauthorized" });
     return res.json({ status: "ok", quote: user.quote });
   } catch (error) {
     console.log(error);
@@ -123,14 +126,15 @@ app.get("/api/quote", async (req, res) => {
 app.post("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
-  if (!authToken || inOtherRoute === true) {
+  if (!authToken) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
     await User.updateOne({ email: email }, { $set: { quote: req.body.quote } });
-
+    if (inOtherRoute === true)
+      return res.status(401).json({ error: "Unauthorized" });
     return res.json({ status: "ok" });
   } catch (error) {
     console.log(error);
