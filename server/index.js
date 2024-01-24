@@ -115,6 +115,7 @@ app.get("/api/quote", async (req, res) => {
     console.log(user);
 
     if (inOtherRoute === true) {
+      res.cookie(authToken, { expires: Date.now(0) });
       res.clearCookie(authToken, { path: "/" });
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -136,6 +137,7 @@ app.post("/api/quote", async (req, res) => {
     const email = decoded.email;
     await User.updateOne({ email: email }, { $set: { quote: req.body.quote } });
     if (inOtherRoute === true) {
+      res.cookie(authToken, { expires: Date.now(0) });
       res.clearCookie(authToken, { path: "/" });
       return res.status(401).json({ error: "Unauthorized" });
     }
