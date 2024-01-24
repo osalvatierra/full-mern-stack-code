@@ -55,7 +55,6 @@ app.post("/api/register", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
-  inOtherRoute = true;
   try {
     // Check if the user exists in the database
     const user = await User.findOne({
@@ -105,7 +104,7 @@ app.get("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
   console.log(authToken);
-  if (!authToken || inOtherRoute) {
+  if (!authToken || !inOtherRoute) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
@@ -123,7 +122,7 @@ app.get("/api/quote", async (req, res) => {
 app.post("/api/quote", async (req, res) => {
   //const token = req.headers["x-access-token"];
   const authToken = req.cookies.xaccesstoken;
-  if (!authToken || inOtherRoute) {
+  if (!authToken || !inOtherRoute) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
@@ -141,7 +140,7 @@ app.post("/api/quote", async (req, res) => {
 app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   console.log("Logout route called");
-  inOtherRoute = false;
+  inOtherRoute = true;
 
   const authToken = req.cookies.xaccesstoken;
 
