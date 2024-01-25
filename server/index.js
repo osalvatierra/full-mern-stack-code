@@ -56,6 +56,7 @@ app.post("/api/register", async (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   inOtherRoute = false;
+  res.setHeader("Cache-Control", "no-store");
   try {
     // Check if the user exists in the database
     const user = await User.findOne({
