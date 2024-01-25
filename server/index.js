@@ -160,8 +160,7 @@ app.post("/api/logout", (req, res) => {
 
   res.cookie(authToken, { expires: Date.now(0) });
   res.clearCookie(authToken, { path: "/" });
-  res.redirect("/login");
-  // res.status(200).json({ message: "Logout successful" });
+  res.status(200).json({ message: "Logout successful" });
 });
 
 app.listen(1337, () => {
