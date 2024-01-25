@@ -160,9 +160,10 @@ app.post("/api/logout", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
+  const authToken = req.cookies.xaccesstoken;
   if (inOtherRoute === true) {
-    res.cookie("xaccesstoken", { expires: Date.now(0) });
-    res.clearCookie("xaccesstoken", { path: "/" });
+    res.cookie(authToken, { expires: Date.now(0) });
+    res.clearCookie(authToken, { path: "/" });
     return res.status(401).json({ error: "Unauthorized" });
   }
 });
