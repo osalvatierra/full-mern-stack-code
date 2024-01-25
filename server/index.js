@@ -118,8 +118,8 @@ app.get("/api/quote", async (req, res) => {
     console.log(user);
 
     if (inOtherRoute === true) {
-      res.cookie(authToken, { expires: Date.now(0) });
-      res.clearCookie(authToken, { path: "/" });
+      res.cookie("xaccesstoken", { expires: Date.now(0) });
+      res.clearCookie("xaccesstoken", { path: "/" });
       return res.status(401).json({ error: "Unauthorized" });
     }
     return res.json({ status: "ok", quote: user.quote });
@@ -140,8 +140,8 @@ app.post("/api/quote", async (req, res) => {
     const email = decoded.email;
     await User.updateOne({ email: email }, { $set: { quote: req.body.quote } });
     if (inOtherRoute === true) {
-      res.cookie(authToken, { expires: Date.now(0) });
-      res.clearCookie(authToken, { path: "/" });
+      res.cookie("xaccesstoken", { expires: Date.now(0) });
+      res.clearCookie("xaccesstoken", { path: "/" });
       return res.status(401).json({ error: "Unauthorized" });
     }
     return res.json({ status: "ok" });
@@ -160,7 +160,8 @@ app.post("/api/logout", (req, res) => {
 
   res.cookie(authToken, { expires: Date.now(0) });
   res.clearCookie(authToken, { path: "/" });
-  res.status(200).json({ message: "Logout successful" });
+  res.redirect("/login");
+  // res.status(200).json({ message: "Logout successful" });
 });
 
 app.listen(1337, () => {
