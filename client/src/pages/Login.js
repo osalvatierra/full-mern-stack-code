@@ -7,7 +7,7 @@ function App() {
 
   async function loginUser(event) {
     event.preventDefault();
-    await fetch("https://full-mern-stack-server.onrender.com/api/login", {
+    fetch("https://full-mern-stack-server.onrender.com/api/login", {
       method: "POST",
       mode: "cors",
       credentials: "include",
@@ -32,28 +32,6 @@ function App() {
       })
       .catch((error) => console.error("Error:", error));
   }
-  async function dashboardDetect() {
-    await fetch("https://full-mern-stack-server.onrender.com/dashboard", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        const currentUrl = window.location.href;
-        if (
-          currentUrl === "https://full-mern-stack-code.onrender.com/dashbaord"
-        ) {
-          console.log("Good");
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-  }
-  dashboardDetect();
   return (
     <div>
       <h1>Login</h1>
