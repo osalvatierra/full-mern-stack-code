@@ -32,8 +32,7 @@ function App() {
       })
       .catch((error) => console.error("Error:", error));
   }
-  async function dashboardDetect(event) {
-    event.preventDefault();
+  async function dashboardDetect() {
     await fetch("https://full-mern-stack-server.onrender.com/dashboard", {
       method: "GET",
       mode: "cors",
