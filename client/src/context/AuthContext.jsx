@@ -30,15 +30,18 @@ function AuthProvider({ children }) {
   //     }
   //   }
 
-  async function login(event) {
-    event.preventDefault();
-    fetch("https://full-mern-stack-server.onrender.com/api/login", {
+  async function login() {
+    await fetch("https://full-mern-stack-server.onrender.com/api/login", {
       method: "POST",
       mode: "cors",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
+      //   body: JSON.stringify({
+      //     email,
+      //     password,
+      //   }),
     })
       .then((response) => response.json())
       .then((data) => {
