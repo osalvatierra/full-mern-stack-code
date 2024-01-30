@@ -1,4 +1,4 @@
-const { createContext, useContext, useReducer } = require("react");
+const { createContext, useContext, useReducer, useState } = require("react");
 
 const AuthContext = createContext();
 
@@ -19,6 +19,8 @@ function reducer(state, action) {
 }
 
 function AuthProvider({ children }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [{ success, isAuthenticated }, dispatch] = useReducer(
     reducer,
     initialState
@@ -38,17 +40,19 @@ function AuthProvider({ children }) {
       headers: {
         "Content-Type": "application/json",
       },
-      //   body: JSON.stringify({
-      //     email,
-      //     password,
-      //   }),
+      body: JSON.stringify({
+        email,
+        password,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setEmail(data.email);
+        setPassword(data.password);
         if (data.success) {
           alert("Login Successful");
-          dispatch({ type: "Login", payload: success });
+          dispatch({ type: "Login", payload: email, password });
           window.location.href = "/dashboard";
         } else {
           alert("Please check your username and password ");
