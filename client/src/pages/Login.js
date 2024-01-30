@@ -1,41 +1,28 @@
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { useAuth } from "./ProtectedRoute";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const { login, isAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function loginUser(event) {
-    event.preventDefault();
-    fetch("https://full-mern-stack-server.onrender.com/api/login", {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.success) {
-          alert("Login Successful");
-          window.location.href = "/dashboard";
-        } else {
-          alert("Please check your username and password ");
-        }
-      })
-      .catch((error) => console.error("Error:", error));
+  function handleSumbit(e) {
+    e.preventDefault();
+    login();
   }
+  const navigate = useNavigate();
+  useEffect(
+    function () {
+      isAuthenticated && navigate("/dashboard", { replace: true });
+    },
+    [isAuthenticated, navigate]
+  );
+
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={loginUser}>
+      <form onSubmit={handleSumbit}>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
