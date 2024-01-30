@@ -52,7 +52,7 @@ function AuthProvider({ children }) {
         setPassword(data.password);
         if (data.success) {
           alert("Login Successful");
-          dispatch({ type: "Login", payload: email, password });
+          dispatch({ type: "Login", payload: data.success });
           window.location.href = "/dashboard";
         } else {
           alert("Please check your username and password ");
