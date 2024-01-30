@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 function App() {
   const { login, isAuthenticated } = useAuth();
@@ -11,12 +10,12 @@ function App() {
     e.preventDefault();
     login();
   }
-  const navigate = useNavigate();
+
   useEffect(
     function () {
-      isAuthenticated && navigate("/dashboard", { replace: true });
+      if (isAuthenticated) window.location.href = "/login";
     },
-    [isAuthenticated, navigate]
+    [isAuthenticated]
   );
 
   return (
