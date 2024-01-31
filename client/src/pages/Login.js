@@ -8,7 +8,7 @@ function App() {
 
   function handleSumbit(e) {
     e.preventDefault();
-    login();
+    if (email && password) login(email, password);
   }
 
   useEffect(

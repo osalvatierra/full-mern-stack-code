@@ -3,7 +3,7 @@ const { createContext, useContext, useReducer, useState } = require("react");
 const AuthContext = createContext();
 
 const initialState = {
-  success: null,
+  user: null,
   isAuthenticated: false,
 };
 
@@ -19,8 +19,6 @@ function reducer(state, action) {
 }
 
 function AuthProvider({ children }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [{ success, isAuthenticated }, dispatch] = useReducer(
     reducer,
     initialState
@@ -32,7 +30,7 @@ function AuthProvider({ children }) {
   //     }
   //   }
 
-  async function login() {
+  async function login(email, password) {
     await fetch("https://full-mern-stack-server.onrender.com/api/login", {
       method: "POST",
       mode: "cors",
@@ -48,11 +46,11 @@ function AuthProvider({ children }) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setEmail(data.email);
-        setPassword(data.password);
-        if (data.success) {
+
+        if (email === data.email && password === data.password) {
+          //if (data.success)
           alert("Login Successful");
-          dispatch({ type: "Login", payload: data.success });
+          dispatch({ type: "Login", payload: data });
           window.location.href = "/dashboard";
         } else {
           alert("Please check your username and password ");
