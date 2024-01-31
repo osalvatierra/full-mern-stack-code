@@ -10,17 +10,12 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Outlet />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+        <ProtectedRoute>
+          <Route path="/" element={<Outlet />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="dashboard" element={<Dashboard />} />
+        </ProtectedRoute>
       </Routes>
     </div>
   );
