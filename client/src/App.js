@@ -4,7 +4,7 @@ import { Route, Routes, Outlet } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import { AuthProvider } from "./context/AuthContext";
+import { ProtectedRoute } from "./pages/ProtectedRoute";
 
 const App = () => {
   return (
@@ -16,9 +16,9 @@ const App = () => {
         <Route
           path="dashboard"
           element={
-            <AuthProvider>
+            <ProtectedRoute>
               <Dashboard />
-            </AuthProvider>
+            </ProtectedRoute>
           }
         />
       </Routes>
