@@ -1,4 +1,4 @@
-const { createContext, useContext, useReducer, useState } = require("react");
+import { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
 
@@ -10,16 +10,16 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "Login":
-      return { ...state, success: action.payload, isAuthenticated: true };
+      return { ...state, user: action.payload, isAuthenticated: true };
     case "Logout":
-      return { ...state, success: null, isAuthenticated: false };
+      return { ...state, user: null, isAuthenticated: false };
     default:
       throw new Error("Unknown action");
   }
 }
 
 function AuthProvider({ children }) {
-  const [{ success, isAuthenticated }, dispatch] = useReducer(
+  const [{ user, isAuthenticated }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -63,7 +63,7 @@ function AuthProvider({ children }) {
     dispatch({ type: "Logout" });
   }
   return (
-    <AuthContext.Provider value={{ success, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
