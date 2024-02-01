@@ -11,7 +11,7 @@ function ProtectedRoute({ children }) {
   //     [isAuthenticated]
   //   );
 
-  return isAuthenticated ? children : (window.location.href = "/login");
+  return isAuthenticated ? children : null;
 }
 
 export default ProtectedRoute;
