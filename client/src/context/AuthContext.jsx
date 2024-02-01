@@ -47,7 +47,7 @@ function AuthProvider({ children }) {
       .then((data) => {
         console.log(data);
 
-        if (email === data.email && password === data.password) {
+        if (data.success) {
           //if (data.success)
           alert("Login Successful");
           dispatch({ type: "Login", payload: data });
