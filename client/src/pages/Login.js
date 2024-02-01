@@ -27,15 +27,13 @@ function App() {
           onChange={(e) => setEmail(e.target.value)}
           type="text"
           placeholder="Email"
-          id="name"
         />
         <br />
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          type="text"
+          type="password"
           placeholder="Password"
-          id="password"
         />
         <br />
         <input type="Submit" value="Login" />
