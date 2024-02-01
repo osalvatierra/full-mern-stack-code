@@ -49,9 +49,8 @@ function AuthProvider({ children }) {
 
         if (data.success) {
           //if (data.success)
-          dispatch({ type: "Login", payload: data });
           alert("Login Successful");
-
+          dispatch({ type: "Login", payload: isAuthenticated });
           window.location.href = "/dashboard";
         } else {
           alert("Please check your username and password ");
