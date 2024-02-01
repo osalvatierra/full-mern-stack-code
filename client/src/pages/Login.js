@@ -13,7 +13,7 @@ function App() {
 
   useEffect(
     function () {
-      if (!isAuthenticated) window.location.href = "/login";
+      if (isAuthenticated) window.location.href = "/dashboard";
     },
     [isAuthenticated]
   );
