@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
+  const navigate = useNavigate();
   async function logout() {
     try {
       const response = await fetch(
@@ -17,7 +19,8 @@ const Logout = () => {
 
       if (response.ok) {
         // Optionally handle success (e.g., redirect to login page)
-        window.location.href = "/login";
+        // window.location.href = "/login";
+        navigate("/login");
       } else {
         // Handle unsuccessful logout (e.g., display an error message)
         console.error("Logout failed");
