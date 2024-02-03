@@ -34,17 +34,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  res.setHeader("Cache-Control", "no-cache");
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://full-mern-stack-code.onrender.com"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
-
 let inOtherRoute = false;
 
 app.post("/api/register", async (req, res) => {
@@ -90,6 +79,10 @@ app.post("/api/login", async (req, res) => {
         {
           expiresIn: "20m",
         }
+      );
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://full-mern-stack-code.onrender.com"
       );
 
       // Set the JWT token in a cookie using Set-Cookie header
