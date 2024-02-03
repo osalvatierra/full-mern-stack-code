@@ -94,6 +94,13 @@ app.post("/api/login", async (req, res) => {
         sameSite: "none", // Adjust based on your needs
         path: "/",
       });
+      // Set CORS headers
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://full-mern-stack-code.onrender.com"
+      );
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
@@ -112,13 +119,6 @@ const corsQuoteOptions = {
 };
 
 app.get("/api/quote", async (req, res) => {
-  // Set CORS headers
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://full-mern-stack-code.onrender.com"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   const authToken = req.cookies.xaccesstoken;
 
   if (!authToken) {
