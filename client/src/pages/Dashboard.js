@@ -5,11 +5,11 @@ import Logout from "./Logout";
 // import { populate } from "../../../server/models/user.model";
 
 const Dashboard = () => {
-  const history = useNavigate();
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
 
   async function populateQuote() {
+    const history = useNavigate();
     const req = await fetch(
       "https://full-mern-stack-server.onrender.com/api/quote",
       {
@@ -25,11 +25,9 @@ const Dashboard = () => {
 
     if (data.status === "ok") {
       setQuote(data.quote);
+    } else {
+      history("/login");
     }
-    // else {
-    //   history("/login");
-    //   // alert(data.error);
-    // }
   }
 
   useEffect(() => {
