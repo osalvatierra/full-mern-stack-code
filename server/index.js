@@ -91,16 +91,9 @@ app.post("/api/login", async (req, res) => {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
         secure: true, // Set to true in production if using HTTPS
-        sameSite: "none", // Adjust based on your needs
+        sameSite: "None", // Adjust based on your needs
         path: "/",
       });
-      // Set CORS headers
-      res.setHeader(
-        "Access-Control-Allow-Origin",
-        "https://full-mern-stack-code.onrender.com"
-      );
-      res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
@@ -113,10 +106,10 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-const corsQuoteOptions = {
-  origin: "https://full-mern-stack-server.onrender.com",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+// const corsQuoteOptions = {
+//   origin: "https://full-mern-stack-server.onrender.com",
+//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
 
 app.get("/api/quote", async (req, res) => {
   const authToken = req.cookies.xaccesstoken;
@@ -176,6 +169,13 @@ app.post("/api/logout", (req, res) => {
 
   res.cookie(authToken, { expires: Date.now(0) });
   res.clearCookie(authToken, { path: "/" });
+  // Set CORS headers
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.status(200).json({ message: "Logout successful" });
 });
 
