@@ -105,12 +105,12 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-// const corsQuoteOptions = {
-//   origin: "https://allowed-origin.com",
-//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
+const corsQuoteOptions = {
+  origin: "https://full-mern-stack-server.onrender.com",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
-app.get("/api/quote", cors(corsOptions), async (req, res) => {
+app.get("/api/quote", cors(corsQuoteOptions), async (req, res) => {
   const authToken = req.cookies.xaccesstoken;
 
   if (!authToken) {
