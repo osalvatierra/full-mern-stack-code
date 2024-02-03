@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-function App() {
+function Login() {
   const { login, isAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,4 +42,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;
