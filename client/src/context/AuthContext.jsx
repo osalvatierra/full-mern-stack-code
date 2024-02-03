@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-
+import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 const initialState = {
@@ -19,39 +19,45 @@ function reducer(state, action) {
 }
 
 function AuthProvider({ children }) {
+  const navigate = useNavigate();
   const [{ user, isAuthenticated }, dispatch] = useReducer(
     reducer,
     initialState
   );
 
   async function login(email, password) {
-    await fetch("https://full-mern-stack-server.onrender.com/api/login", {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-
-        if (data.success) {
-          //if (data.success)
-          alert("Login Successful");
-          console.log(isAuthenticated);
-          dispatch({ type: "Login", payload: data.user });
-          window.location.href = "/dashboard";
-        } else {
-          alert("Please check your username and password ");
+    try {
+      const response = await fetch(
+        "https://full-mern-stack-server.onrender.com/api/login",
+        {
+          method: "POST",
+          mode: "cors",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
         }
-      })
-      .catch((error) => console.error("Error:", error));
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+
+      if (data.success) {
+        console.log(isAuthenticated);
+        alert("Login Successful");
+        dispatch({ type: "Login", payload: data.user });
+        navigate("/dashboard");
+      } else {
+        alert("Please check your username and password ");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   function logout() {
