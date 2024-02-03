@@ -16,7 +16,7 @@ const Logout = () => {
           },
         }
       );
-
+      f;
       if (response.ok) {
         // Optionally handle success (e.g., redirect to login page)
         // window.location.href = "/login";
