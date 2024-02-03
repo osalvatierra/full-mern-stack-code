@@ -9,14 +9,14 @@ const Logout = () => {
         "https://full-mern-stack-server.onrender.com/api/logout",
         {
           method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            // Include any additional headers if needed (e.g., authentication token)
-          },
+          // credentials: "include",
+          // headers: {
+          //   "Content-Type": "application/json",
+          //   // Include any additional headers if needed (e.g., authentication token)
+          // },
         }
       );
-      f;
+
       if (response.ok) {
         // Optionally handle success (e.g., redirect to login page)
         // window.location.href = "/login";
