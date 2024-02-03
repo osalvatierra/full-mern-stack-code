@@ -25,10 +25,11 @@ const Dashboard = () => {
 
     if (data.status === "ok") {
       setQuote(data.quote);
-    } else {
-      history("/login");
-      // alert(data.error);
     }
+    // else {
+    //   history("/login");
+    //   // alert(data.error);
+    // }
   }
 
   useEffect(() => {
