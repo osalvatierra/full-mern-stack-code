@@ -50,6 +50,7 @@ function AuthProvider({ children }) {
         if (data.success) {
           //if (data.success)
           alert("Login Successful");
+          console.log(isAuthenticated);
           dispatch({ type: "Login", payload: isAuthenticated });
           window.location.href = "/dashboard";
         } else {
