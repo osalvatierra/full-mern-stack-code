@@ -80,10 +80,6 @@ app.post("/api/login", async (req, res) => {
           expiresIn: "20m",
         }
       );
-      res.setHeader(
-        "Access-Control-Allow-Origin",
-        "https://full-mern-stack-code.onrender.com"
-      );
 
       // Set the JWT token in a cookie using Set-Cookie header
       res.cookie("xaccesstoken", token, {
@@ -93,6 +89,10 @@ app.post("/api/login", async (req, res) => {
         sameSite: "none", // Adjust based on your needs
         path: "/",
       });
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://full-mern-stack-code.onrender.com"
+      );
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
