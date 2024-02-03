@@ -29,13 +29,19 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Origin, Content-Type, X-Auth-Token",
   optionsSuccessStatus: 204,
-  sameSite: "None",
+  sameSite: "none",
 };
 
 app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-cache");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
 
@@ -91,16 +97,9 @@ app.post("/api/login", async (req, res) => {
         httpOnly: true,
         maxAge: 3600000, // 1 hour in milliseconds
         secure: true, // Set to true in production if using HTTPS
-        sameSite: "None", // Adjust based on your needs
+        sameSite: "none", // Adjust based on your needs
         path: "/",
       });
-
-      res.setHeader(
-        "Access-Control-Allow-Origin",
-        "https://full-mern-stack-code.onrender.com"
-      );
-      res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
       res.json({ success: true });
       //return res.json({ status: "ok", authToken: token });
