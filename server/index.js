@@ -29,6 +29,7 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Origin, Content-Type, X-Auth-Token",
   optionsSuccessStatus: 204,
+  sameSite: "None",
 };
 
 app.use(cors(corsOptions));
@@ -110,7 +111,14 @@ const corsQuoteOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-app.get("/api/quote", cors(corsQuoteOptions), async (req, res) => {
+app.get("/api/quote", async (req, res) => {
+  // Set CORS headers
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   const authToken = req.cookies.xaccesstoken;
 
   if (!authToken) {
