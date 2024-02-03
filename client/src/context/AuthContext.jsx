@@ -24,12 +24,6 @@ function AuthProvider({ children }) {
     initialState
   );
 
-  //   function login(success) {
-  //     if (success) {
-  //       dispatch({ type: "Login", payload: success });
-  //     }
-  //   }
-
   async function login(email, password) {
     await fetch("https://full-mern-stack-server.onrender.com/api/login", {
       method: "POST",
@@ -51,7 +45,7 @@ function AuthProvider({ children }) {
           //if (data.success)
           alert("Login Successful");
           console.log(isAuthenticated);
-          dispatch({ type: "Login", payload: isAuthenticated });
+          dispatch({ type: "Login", payload: data.user });
           window.location.href = "/dashboard";
         } else {
           alert("Please check your username and password ");
