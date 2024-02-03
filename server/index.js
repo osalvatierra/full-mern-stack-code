@@ -179,6 +179,17 @@ app.post("/api/logout", (req, res) => {
   res.status(200).json({ message: "Logout successful" });
 });
 
+app.post("/login", (req, res) => {
+  console.log("Logout route called");
+  // Set CORS headers
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+});
+
 app.listen(1337, () => {
   console.log("Server started on 1337");
 });
