@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const { login, isAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   function handleSumbit(e) {
     e.preventDefault();
@@ -13,9 +15,9 @@ function Login() {
 
   useEffect(
     function () {
-      if (isAuthenticated) window.location.href = "/dashboard";
+      if (isAuthenticated) navigate("/dashboard");
     },
-    [isAuthenticated]
+    [isAuthenticated, navigate]
   );
 
   return (
