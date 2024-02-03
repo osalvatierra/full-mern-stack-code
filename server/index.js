@@ -109,6 +109,8 @@ app.get("/api/quote", async (req, res) => {
   const authToken = req.cookies.xaccesstoken;
 
   if (!authToken) {
+    res.redirect("/login");
+
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
@@ -120,6 +122,7 @@ app.get("/api/quote", async (req, res) => {
     if (inOtherRoute === true) {
       res.cookie(authToken, { expires: Date.now(0) });
       res.clearCookie(authToken, { path: "/" });
+      res.redirect("/login");
       return res.status(401).json({ error: "Unauthorized" });
     }
     return res.json({ status: "ok", quote: user.quote });
@@ -160,7 +163,6 @@ app.post("/api/logout", (req, res) => {
 
   res.cookie(authToken, { expires: Date.now(0) });
   res.clearCookie(authToken, { path: "/" });
-
   res.status(200).json({ message: "Logout successful" });
 });
 
