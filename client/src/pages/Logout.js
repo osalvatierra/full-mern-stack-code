@@ -6,9 +6,9 @@ const Logout = () => {
   async function logout() {
     try {
       const response = await fetch(
-        "https://full-mern-stack-server.onrender.com/api/quote",
+        "https://full-mern-stack-server.onrender.com/api/logout",
         {
-          method: "GET",
+          method: "POST",
           mode: "cors",
           credentials: "include",
           headers: {
@@ -17,10 +17,13 @@ const Logout = () => {
         }
       );
 
-      if (response.status === "expired") {
+      if (response.ok) {
         // Optionally handle success (e.g., redirect to login page)
         // window.location.href = "/login";
         return navigate("/login");
+      } else {
+        // Handle unsuccessful logout (e.g., display an error message)
+        console.error("Logout failed");
       }
     } catch (error) {
       // Handle network or other errors
