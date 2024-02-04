@@ -9,11 +9,11 @@ const Logout = () => {
         "https://full-mern-stack-server.onrender.com/api/logout",
         {
           method: "POST",
-          // credentials: "include",
-          // headers: {
-          //   "Content-Type": "application/json",
-          //   // Include any additional headers if needed (e.g., authentication token)
-          // },
+          mode: "cors",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
