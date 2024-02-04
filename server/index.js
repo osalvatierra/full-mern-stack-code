@@ -167,7 +167,7 @@ app.post("/api/logout", (req, res) => {
 
   res.cookie(authToken, { expires: Date.now(0) });
   res.clearCookie(authToken, { path: "/" });
-  return res.json({ ok: true });
+  return res.json({ status: "expired" });
 });
 
 app.listen(1337, () => {
