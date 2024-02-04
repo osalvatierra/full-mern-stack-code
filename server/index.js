@@ -34,6 +34,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.use((req, res) => {
+  res.setHeader("Cache-Control", "no-cache");
+});
+
 let inOtherRoute = false;
 
 app.post("/api/register", async (req, res) => {
@@ -124,7 +128,7 @@ app.get("/api/quote", async (req, res) => {
       res.cookie(authToken, { expires: Date.now(0) });
       res.clearCookie(authToken, { path: "/" });
       res.redirect("/login");
-      return res.status(401).json({ error: "Unauthorized" });
+      // return res.status(401).json({ error: "Unauthorized" });
     }
     return res.json({ status: "ok", quote: user.quote });
   } catch (error) {
