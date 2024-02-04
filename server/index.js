@@ -169,7 +169,7 @@ app.post("/api/logout", (req, res) => {
 
   res.cookie(authToken, { expires: Date.now(0) });
   res.clearCookie(authToken, { path: "/" });
-  res.json({ status: "ok" });
+  return res.redirect("/login");
 });
 
 app.listen(1337, () => {
