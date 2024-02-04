@@ -162,11 +162,17 @@ app.post("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   console.log("Logout route called");
   inOtherRoute = true;
-
   const authToken = req.cookies.xaccesstoken;
+  if (!authToken) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
 
   try {
-    return res.json({ status: "expired" });
+    if (inOtherRoute === true) {
+      res.cookie(authToken, { expires: Date.now(0) });
+      res.clearCookie(authToken, { path: "/" });
+      return res.json({ status: "expired" });
+    }
   } catch (error) {
     console.log(error);
   }

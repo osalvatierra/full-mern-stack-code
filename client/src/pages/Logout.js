@@ -5,7 +5,7 @@ const Logout = () => {
   const navigate = useNavigate();
   async function logout() {
     try {
-      const response = await fetch(
+      const req = await fetch(
         "https://full-mern-stack-server.onrender.com/api/logout",
         {
           method: "POST",
@@ -16,8 +16,9 @@ const Logout = () => {
           },
         }
       );
+      const data = await req.json();
 
-      if (response.status === "expired") {
+      if (data.status === "expired") {
         // Optionally handle success (e.g., redirect to login page)
         // window.location.href = "/login";
         navigate("/login");
