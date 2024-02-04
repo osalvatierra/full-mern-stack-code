@@ -165,9 +165,15 @@ app.post("/api/logout", (req, res) => {
 
   const authToken = req.cookies.xaccesstoken;
 
-  res.cookie(authToken, { expires: Date.now(0) });
-  res.clearCookie(authToken, { path: "/" });
-  return res.json({ status: "expired" });
+  try {
+    if (inOtherRoute === true) {
+      res.cookie(authToken, { expires: Date.now(0) });
+      res.clearCookie(authToken, { path: "/" });
+      return res.json({ status: "expired" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.listen(1337, () => {
