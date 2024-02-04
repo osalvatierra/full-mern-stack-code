@@ -80,7 +80,7 @@ app.post("/api/login", async (req, res) => {
           expiresIn: "20m",
         }
       );
-      res.setHeader("Cache-Control", "no-cache");
+
       // Set the JWT token in a cookie using Set-Cookie header
       res.cookie("xaccesstoken", token, {
         httpOnly: true,
