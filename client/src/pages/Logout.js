@@ -17,7 +17,7 @@ const Logout = () => {
         }
       );
 
-      if (response.expired) {
+      if (response.status === "expired") {
         // Optionally handle success (e.g., redirect to login page)
         // window.location.href = "/login";
         navigate("/login");
