@@ -149,7 +149,7 @@ app.post("/api/quote", async (req, res) => {
     if (inOtherRoute === true) {
       res.cookie(authToken, { expires: Date.now(0) });
       res.clearCookie(authToken, { path: "/" });
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.json({ status: "expired" });
     }
     return res.json({ status: "ok" });
   } catch (error) {
