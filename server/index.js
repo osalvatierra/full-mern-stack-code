@@ -158,7 +158,7 @@ app.post("/api/quote", async (req, res) => {
   }
 });
 
-app.post("/api/logout", (req, res) => {
+app.get("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   console.log("Logout route called");
   inOtherRoute = true;
