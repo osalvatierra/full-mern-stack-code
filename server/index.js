@@ -115,8 +115,6 @@ app.get("/api/quote", async (req, res) => {
   const authToken = req.cookies.xaccesstoken;
 
   if (!authToken) {
-    res.redirect("/login");
-
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
