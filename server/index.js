@@ -34,11 +34,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  res.setHeader("Cache-Control", "no-cache");
-  next();
-});
-
 let inOtherRoute = false;
 
 app.post("/api/register", async (req, res) => {
@@ -85,7 +80,7 @@ app.post("/api/login", async (req, res) => {
           expiresIn: "20m",
         }
       );
-
+      res.setHeader("Cache-Control", "no-cache");
       // Set the JWT token in a cookie using Set-Cookie header
       res.cookie("xaccesstoken", token, {
         httpOnly: true,
