@@ -114,9 +114,6 @@ app.post("/api/login", async (req, res) => {
 app.get("/api/quote", async (req, res) => {
   const authToken = req.cookies.xaccesstoken;
 
-  if (!authToken) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
   try {
     const decoded = jwt.verify(authToken, "secrete123");
     const email = decoded.email;
@@ -126,10 +123,10 @@ app.get("/api/quote", async (req, res) => {
     if (inOtherRoute === true) {
       res.cookie(authToken, { expires: Date.now(0) });
       res.clearCookie(authToken, { path: "/" });
-
-      return res.status(401).json({ error: "Unauthorized" });
+      res.status(401).json({ error: "Unauthorized" });
+    } else {
+      return res.json({ status: "ok", quote: user.quote });
     }
-    return res.json({ status: "ok", quote: user.quote });
   } catch (error) {
     console.log(error);
     res.json({ status: "error", error: "invalid token" });

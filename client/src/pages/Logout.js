@@ -21,9 +21,6 @@ const Logout = () => {
         // Optionally handle success (e.g., redirect to login page)
         // window.location.href = "/login";
         navigate("/login");
-      } else {
-        // Handle unsuccessful logout (e.g., display an error message)
-        console.error("Logout failed");
       }
     } catch (error) {
       // Handle network or other errors
