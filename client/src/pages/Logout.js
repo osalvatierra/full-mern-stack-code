@@ -8,7 +8,7 @@ const Logout = () => {
       const req = await fetch(
         "https://full-mern-stack-server.onrender.com/api/logout",
         {
-          method: "GET",
+          method: "POST",
           mode: "cors",
           credentials: "include",
           headers: {
