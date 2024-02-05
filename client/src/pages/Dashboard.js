@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Logout from "./Logout";
 
 // import { populate } from "../../../server/models/user.model";
@@ -75,8 +77,12 @@ const Dashboard = () => {
         />
         <input type="submit" value={"Update Quote"} />
       </form>
-
-      <Logout type="Logout" value="Logout" />
+      <Router>
+        <Routes>
+          {/* Other routes */}
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </Router>
     </div>
   );
 };
