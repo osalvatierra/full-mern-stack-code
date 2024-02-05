@@ -161,6 +161,7 @@ app.post("/api/quote", async (req, res) => {
 app.get("/api/logout", (req, res) => {
   // Access the user information attached to the request object
   console.log("Logout route called");
+  const authToken = req.cookies.xaccesstoken;
   inOtherRoute = true;
 
   try {
