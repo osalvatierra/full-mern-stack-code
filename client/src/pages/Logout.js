@@ -21,6 +21,7 @@ const Logout = () => {
       if (data.status === "expired") {
         // Optionally handle success (e.g., redirect to login page)
         // window.location.href = "/login";
+        console.log("Redirecting to /login");
         navigate("/login");
       } else {
         // Handle unsuccessful logout (e.g., display an error message)
