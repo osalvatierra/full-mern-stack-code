@@ -165,7 +165,7 @@ app.post("/api/logout", (req, res) => {
   inOtherRoute = true;
 
   try {
-    res.cookie(authToken, "", { expires: Date.now(0), path: "/" });
+    res.cookie(authToken, "", { expires: new Date(0), path: "/" });
 
     return res.json({ status: "expired" });
   } catch (error) {
