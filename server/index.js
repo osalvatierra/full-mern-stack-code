@@ -165,13 +165,12 @@ app.get("/api/logout", (req, res) => {
   inOtherRoute = true;
 
   try {
-    if (inOtherRoute === true) {
-      res.cookie(authToken, { expires: Date.now(0) });
-      res.clearCookie(authToken, { path: "/" });
-    }
+    res.cookie(authToken, "", { expires: Date.now(0), path: "/" });
+
     return res.json({ status: "expired" });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
