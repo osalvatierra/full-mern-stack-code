@@ -17,7 +17,7 @@ const Logout = () => {
         }
       );
       const data = await req.json();
-
+      console.log(data);
       if (data.status === "expired") {
         // Optionally handle success (e.g., redirect to login page)
         // window.location.href = "/login";
