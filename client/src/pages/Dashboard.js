@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 import Logout from "./Logout";
 
@@ -7,33 +8,38 @@ import Logout from "./Logout";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
 
   useEffect(() => {
-    async function populateQuote() {
-      const req = await fetch(
-        "https://full-mern-stack-server.onrender.com/api/quote",
-        {
-          method: "GET",
-          credentials: "include", // Include credentials (cookies)
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await req.json();
-      console.log(data);
+    if (isAuthenticated) {
+      async function populateQuote() {
+        const req = await fetch(
+          "https://full-mern-stack-server.onrender.com/api/quote",
+          {
+            method: "GET",
+            credentials: "include", // Include credentials (cookies)
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await req.json();
+        console.log(data);
 
-      if (data.status === "ok") {
-        setQuote(data.quote);
+        if (data.status === "ok") {
+          setQuote(data.quote);
+        }
+        if (data.status === "expired") {
+          navigate("/login");
+        }
       }
-      if (data.status === "expired") {
-        navigate("/login");
-      }
+
+      populateQuote();
     }
-    populateQuote();
-  }, [navigate, quote]);
+  }, [isAuthenticated, navigate]);
 
   //So you have to also include a GET request for /dashboard here and also add in index.js/routes so that you can
   //Access the cookies via fetch req, res and then routes will take care of the sending on the node server file!!!
