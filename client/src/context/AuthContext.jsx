@@ -52,7 +52,6 @@ function AuthProvider({ children }) {
         alert("Login Successful");
         dispatch({ type: "Login", payload: data.user });
         console.log(isAuthenticated);
-        navigate("/dashboard");
       } else {
         alert("Please check your username and password ");
       }
