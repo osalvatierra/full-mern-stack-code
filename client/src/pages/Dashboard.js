@@ -26,7 +26,8 @@ const Dashboard = () => {
 
     if (data.status === "ok") {
       setQuote(data.quote);
-    } else {
+    }
+    if (data.status === "expired") {
       history("/login");
     }
   }
