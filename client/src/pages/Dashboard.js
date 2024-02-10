@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [tempQuote, setTempQuote] = useState("");
 
   useEffect(() => {
+    console.log(isAuthenticated);
     if (isAuthenticated) {
       async function populateQuote() {
         const req = await fetch(
@@ -28,6 +29,7 @@ const Dashboard = () => {
         );
         const data = await req.json();
         console.log("test");
+        console.log(data.status);
 
         if (data.status === "ok") {
           setQuote(data.quote);
