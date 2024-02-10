@@ -8,13 +8,12 @@ import Logout from "./Logout";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { logout, isAuthenticated } = useAuth();
 
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
-
+  console.log(isAuthenticated);
   useEffect(() => {
-    console.log(isAuthenticated);
     if (isAuthenticated) {
       async function populateQuote() {
         const req = await fetch(
@@ -33,14 +32,15 @@ const Dashboard = () => {
 
         if (data.status === "ok") {
           setQuote(data.quote);
-        } else {
-          navigate("/login");
         }
       }
 
       populateQuote();
+    } else {
+      logout();
+      // navigate("/login");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, logout]);
 
   //So you have to also include a GET request for /dashboard here and also add in index.js/routes so that you can
   //Access the cookies via fetch req, res and then routes will take care of the sending on the node server file!!!
