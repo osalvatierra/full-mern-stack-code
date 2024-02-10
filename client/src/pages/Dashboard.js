@@ -8,7 +8,7 @@ import Logout from "./Logout";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { logout, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
@@ -36,11 +36,8 @@ const Dashboard = () => {
       }
 
       populateQuote();
-    } else {
-      logout();
-      // navigate("/login");
     }
-  }, [isAuthenticated, navigate, logout]);
+  }, [isAuthenticated, navigate]);
 
   //So you have to also include a GET request for /dashboard here and also add in index.js/routes so that you can
   //Access the cookies via fetch req, res and then routes will take care of the sending on the node server file!!!
