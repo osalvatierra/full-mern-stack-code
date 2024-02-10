@@ -158,22 +158,6 @@ app.post("/api/quote", async (req, res) => {
   }
 });
 
-app.post("/api/logout", (req, res) => {
-  // Access the user information attached to the request object
-  console.log("Logout route called");
-  const authToken = req.cookies.xaccesstoken;
-  inOtherRoute = true;
-
-  try {
-    res.cookie(authToken, "", { expires: new Date(0), path: "/" });
-
-    return res.json({ status: "expired" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
 app.listen(1337, () => {
   console.log("Server started on 1337");
 });
