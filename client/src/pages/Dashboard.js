@@ -27,12 +27,11 @@ const Dashboard = () => {
           }
         );
         const data = await req.json();
-        console.log(data);
+        console.log("test");
 
         if (data.status === "ok") {
           setQuote(data.quote);
-        }
-        if (data.status === "expired") {
+        } else {
           navigate("/login");
         }
       }
