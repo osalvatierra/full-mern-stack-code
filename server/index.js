@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/auth", authRoutes);
+app.use("/api/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
 
 // Error handling middleware
