@@ -1,7 +1,10 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
-const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser"); // Import cookieParser module
+
+const express = require("express");
+const app = express();
 app.use(cookieParser());
 
 let inOtherRoute = false;
