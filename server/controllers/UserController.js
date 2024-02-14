@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 let inOtherRoute = false;
 
@@ -30,7 +32,7 @@ exports.login = async (req, res) => {
       email: req.body.email,
     });
 
-    const isPasswordValid = await bycrypt.compare(
+    const isPasswordValid = await bcrypt.compare(
       req.body.password,
       user.password
     );
