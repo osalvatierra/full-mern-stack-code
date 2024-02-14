@@ -4,11 +4,11 @@ const User = require("../models/user.model");
 
 let inOtherRoute = false;
 
-exports.register = async (req, res, next) => {
+exports.register = async (req, res) => {
   console.log(req.body);
 
   try {
-    const newPassword = await bycrypt.hash(req.body.password, 10);
+    const newPassword = await bcrypt.hash(req.body.password, 10);
     await User.create({
       name: req.body.name,
       email: req.body.email,
@@ -17,12 +17,12 @@ exports.register = async (req, res, next) => {
     });
     res.json({ status: "ok" });
   } catch (error) {
-    next(error);
+    console.log(error);
     res.json({ status: "error", error: "Duplicate email" });
   }
 };
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
   inOtherRoute = false;
   try {
     // Check if the user exists in the database
@@ -63,7 +63,7 @@ exports.login = async (req, res, next) => {
       return res.json({ status: "error", user: false });
     }
   } catch (error) {
-    next(error);
+    console.log(error);
     return res.json({ status: "error", user: false });
   }
 };
