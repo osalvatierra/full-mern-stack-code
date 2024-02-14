@@ -1,5 +1,4 @@
 import { createContext, useContext, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 const initialState = {
@@ -19,7 +18,6 @@ function reducer(state, action) {
 }
 
 function AuthProvider({ children }) {
-  const navigate = useNavigate();
   const [{ user, isAuthenticated }, dispatch] = useReducer(
     reducer,
     initialState
