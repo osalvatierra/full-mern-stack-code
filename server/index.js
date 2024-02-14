@@ -45,8 +45,8 @@ app.use((req, res, next) => {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/login", authRoutes);
-app.use("/api/quote", quoteRoutes);
+app.use(process.env.CLIENT_ORIGIN + "/api/login", authRoutes);
+app.use(process.env.CLIENT_ORIGIN + "/api/quote", quoteRoutes);
 
 // Error handling middleware
 // app.use((err, req, res) => {
