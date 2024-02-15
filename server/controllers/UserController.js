@@ -3,6 +3,10 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 const cookieParser = require("cookie-parser"); // Import cookieParser module
 
+const morgan = require("morgan");
+
+app.use(morgan("combined"));
+
 const express = require("express");
 const app = express();
 app.use(cookieParser());

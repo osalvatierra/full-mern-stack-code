@@ -3,14 +3,12 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
 const dotenv = require("dotenv");
 
 // Load environment variables from config.env file
 dotenv.config({ path: "./config.env" });
 
 // Middleware
-app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -51,7 +49,7 @@ app.use("/api/quote", quoteRoutes);
 // Error handling middleware
 app.use((err, req, res) => {
   console.error(err.stack);
-  res.status(500).json({ error: "Internal Server Error" });
+  // res.status(500).json({ error: "Internal Server Error" });
 });
 
 // Start server
