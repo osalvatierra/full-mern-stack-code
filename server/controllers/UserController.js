@@ -1,8 +1,12 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
+
+const express = require("express");
+const morgan = require("morgan");
+const app = express();
+
+app.use(morgan("dev"));
 
 let inOtherRoute = false;
 
