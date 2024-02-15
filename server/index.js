@@ -49,10 +49,10 @@ app.use("/api/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
 
 // Error handling middleware
-// app.use((err, req, res) => {
-//   console.error(err.stack);
-//   res.status(500).json({ error: "Internal Server Error" });
-// });
+app.use((err, req, res) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
 // Start server
 const PORT = process.env.PORT || 1337;
