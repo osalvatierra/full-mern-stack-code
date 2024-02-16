@@ -14,10 +14,6 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-app.post("*", (req, res) => {
-  return res.json({ res });
-});
-
 app.use(
   cors({
     origin: process.env.CLIENT_ORIGIN,
@@ -28,6 +24,10 @@ app.use(
     sameSite: "none",
   })
 );
+
+app.post("*", (req, res) => {
+  return res.json({ res });
+});
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
