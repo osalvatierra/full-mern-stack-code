@@ -37,9 +37,10 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-app.use((req, res) => {
-  res.setHeader("Cache-Control", "no-cache");
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Cache-Control", "no-cache");
+
+// });
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
