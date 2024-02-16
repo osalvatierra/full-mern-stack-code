@@ -27,9 +27,9 @@ app.use(
   })
 );
 
-app.post("*", (req, res) => {
-  res.json({ message: "POST request received" });
-});
+// app.post("/api/login", (req, res) => {
+//   res.json({ message: "POST request received" });
+// });
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
@@ -50,8 +50,8 @@ app.use((req, res) => {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/login", authRoutes);
-app.use("/api/quote", quoteRoutes);
+app.post("/api/login", authRoutes);
+app.post("/api/quote", quoteRoutes);
 
 // Error handling middleware
 // app.use((err, req, res) => {
