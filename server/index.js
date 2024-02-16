@@ -50,8 +50,8 @@ app.use((req, res) => {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.post("/api/login", authRoutes);
-app.post("/api/quote", quoteRoutes);
+app.use("/api/login", authRoutes);
+app.use("/api/quote", quoteRoutes);
 
 // Error handling middleware
 // app.use((err, req, res) => {
