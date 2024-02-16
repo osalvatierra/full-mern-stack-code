@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.post("*", (req, res) => {
-  return res.json({ respons });
+  return res.json({ res });
 });
 
 app.use(
