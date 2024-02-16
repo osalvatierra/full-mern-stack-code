@@ -14,6 +14,10 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
+app.post("*", (req, res) => {
+  return res.json({ respons });
+});
+
 app.use(
   cors({
     origin: process.env.CLIENT_ORIGIN,
@@ -45,8 +49,8 @@ db.once("open", function () {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.use("api/login", authRoutes);
-app.use("api/quote", quoteRoutes);
+app.use("/api/login", authRoutes);
+app.use("/api/quote", quoteRoutes);
 
 // Error handling middleware
 // app.use((err, req, res) => {
