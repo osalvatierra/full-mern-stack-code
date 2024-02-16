@@ -57,7 +57,7 @@ exports.login = async (req, res) => {
         path: "/",
       });
 
-      res.json({ success: true });
+      res.json({ success: true, user });
       //return res.json({ status: "ok", authToken: token });
     } else {
       return res.json({ status: "error", user: false });
