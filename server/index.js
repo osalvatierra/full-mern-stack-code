@@ -19,7 +19,7 @@ app.use(
     origin: "https://full-mern-stack-code.onrender.com",
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Origin, Content-Type, X-Auth-Token",
+    allowedHeaders: ["Origin", "Content-Type", "X-Auth-Token"],
     optionsSuccessStatus: 204,
     sameSite: "none",
   })
