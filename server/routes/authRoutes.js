@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+app.use(cors());
+
 // const router = express.Router();
 const UserController = require("../controllers/UserController");
 
