@@ -6,7 +6,7 @@ const UserController = require("../controllers/UserController");
 
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN,
+    origin: "https://full-mern-stack-code.onrender.com",
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: "Origin, Content-Type, X-Auth-Token",
