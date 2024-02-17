@@ -16,16 +16,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json()); // Parse JSON request bodies
 
-app.use(
-  cors({
-    origin: "https://full-mern-stack-code.onrender.com",
-    credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Origin, Content-Type, X-Auth-Token",
-    optionsSuccessStatus: 204,
-    sameSite: "none",
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: "https://full-mern-stack-code.onrender.com",
+//     credentials: true,
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     allowedHeaders: "Origin, Content-Type, X-Auth-Token",
+//     optionsSuccessStatus: 204,
+//     sameSite: "none",
+//   })
+// );
 
 // app.post("/api/login", (req, res) => {
 //   res.json({ message: "POST request received" });
