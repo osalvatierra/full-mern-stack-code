@@ -1,7 +1,19 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const router = express.Router();
 const UserController = require("../controllers/UserController");
+
+app.use(
+  cors({
+    origin: process.env.CLIENT_ORIGIN,
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Origin, Content-Type, X-Auth-Token",
+    optionsSuccessStatus: 204,
+    sameSite: "none",
+  })
+);
 
 app.post("/api/register", UserController.register);
 app.post("/api/login", UserController.login);
