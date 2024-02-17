@@ -43,15 +43,15 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
+app.use((req, res) => {
+  res.setHeader("Cache-Control", "no-cache");
+});
+
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
 app.use("/api/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
-
-app.use((req, res) => {
-  res.setHeader("Cache-Control", "no-cache");
-});
 
 // Error handling middleware
 // app.use((err, req, res) => {
