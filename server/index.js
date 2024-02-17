@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
-const bodyParser = require("body-parser");
 
 // Load environment variables from config.env file
 dotenv.config({ path: "./config.env" });
@@ -14,19 +13,17 @@ dotenv.config({ path: "./config.env" });
 app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.json()); // Parse JSON request bodies
 
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: "https://full-mern-stack-code.onrender.com",
-//     credentials: true,
-//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     allowedHeaders: "Origin, Content-Type, X-Auth-Token",
-//     optionsSuccessStatus: 204,
-//     sameSite: "none",
-//   })
-// );
+app.use(
+  cors({
+    origin: "https://full-mern-stack-code.onrender.com",
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Origin, Content-Type, X-Auth-Token",
+    optionsSuccessStatus: 204,
+    sameSite: "none",
+  })
+);
 
 // app.post("/api/login", (req, res) => {
 //   res.json({ message: "POST request received" });
