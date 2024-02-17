@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
@@ -13,7 +12,6 @@ dotenv.config({ path: "./config.env" });
 // Middleware
 app.use(morgan("combined"));
 app.use(express.json());
-app.use(cookieParser());
 app.use(bodyParser.json()); // Parse JSON request bodies
 
 app.use(
