@@ -14,10 +14,14 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-// Logging middleware to log incoming requests
-app.use((req, res) => {
-  console.log(`Received ${req.method} request for ${req.url}`);
-});
+// Logging middleware to log only POST requests
+app.use(
+  morgan("dev", {
+    skip: function (req, res) {
+      return req.method !== "POST";
+    },
+  })
+);
 
 app.use(
   cors({
