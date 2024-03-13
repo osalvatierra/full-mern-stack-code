@@ -25,9 +25,14 @@ app.use(
   })
 );
 
-// app.post("/api/login", (req, res) => {
-//   res.json({ message: "POST request received" });
-// });
+app.post("/api/login", (req, res) => {
+  // Set CORS headers
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.json({ message: "POST request received" });
+});
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
