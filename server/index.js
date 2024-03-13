@@ -25,6 +25,14 @@ app.use(
   })
 );
 
+app.options("/api/login", (req, res) => {
+  res.sendStatus(204); // Respond with HTTP status 204 (No Content)
+});
+
+app.post("/api/login", (req, res) => {
+  res.json({ message: "POST request received" });
+});
+
 // Middleware to handle preflight requests
 app.options("*", cors());
 
@@ -42,14 +50,6 @@ db.once("open", function () {
 
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
-});
-
-app.options("/api/login", (req, res) => {
-  res.sendStatus(204); // Respond with HTTP status 204 (No Content)
-});
-
-app.post("/api/login", (req, res) => {
-  res.json({ message: "POST request received" });
 });
 
 // Routes
