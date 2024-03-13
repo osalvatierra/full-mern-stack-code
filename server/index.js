@@ -25,13 +25,16 @@ app.use(
   })
 );
 
-app.post("/api/login", (req, res) => {
-  // Set CORS headers
+app.use(cors(corsOptions));
+
+app.use((req, res) => {
+  res.setHeader("Cache-Control", "no-cache");
   res.setHeader(
     "Access-Control-Allow-Origin",
     "https://full-mern-stack-code.onrender.com"
   );
-  res.json({ message: "POST request received" });
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 });
 
 // Database connection
