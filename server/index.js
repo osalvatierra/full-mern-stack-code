@@ -14,6 +14,11 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
+// Logging middleware to log incoming requests
+app.use((req, res) => {
+  console.log(`Received ${req.method} request for ${req.url}`);
+});
+
 app.use(
   cors({
     origin: "https://full-mern-stack-code.onrender.com",
