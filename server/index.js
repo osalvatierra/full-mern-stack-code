@@ -25,8 +25,6 @@ app.use(
   })
 );
 
-app.use(cors(corsOptions));
-
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader(
