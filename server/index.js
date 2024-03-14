@@ -14,25 +14,13 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-// Logging middleware to log only POST requests
-app.use(
-  morgan("dev", {
-    skip: function (req, res) {
-      return req.method !== "POST";
-    },
-  })
-);
-
 // Manually handle preflight requests for CORS
-app.options("*", (req, res) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://full-mern-stack-code.onrender.com"
-  );
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.sendStatus(200);
-});
+res.header(
+  "Access-Control-Allow-Origin",
+  "https://full-mern-stack-code.onrender.com"
+);
+res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
