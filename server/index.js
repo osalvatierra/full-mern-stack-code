@@ -27,6 +27,11 @@ app.use(cookieParser());
 
 // app.use(cors(corsOptions));
 app.use(cors());
+
+const options = {
+  origin: "https://full-mern-stack-code.onrender.com",
+};
+app.use(cors(options));
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader(
