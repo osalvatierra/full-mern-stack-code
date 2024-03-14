@@ -23,16 +23,16 @@ app.use(
   })
 );
 
-app.use(
-  cors({
-    origin: "https://full-mern-stack-code.onrender.com",
-    credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Origin,Content-Type,X-Auth-Token",
-    optionsSuccessStatus: 204,
-    sameSite: "none",
-  })
-);
+// Manually handle preflight requests for CORS
+app.options("*", (req, res) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.sendStatus(200);
+});
 
 app.options("/api/login", (req, res) => {
   res.sendStatus(204); // Respond with HTTP status 204 (No Content)
@@ -41,9 +41,6 @@ app.options("/api/login", (req, res) => {
 app.post("/api/login", (req, res) => {
   res.json({ message: "POST request received" });
 });
-
-// Middleware to handle preflight requests
-app.options("*", cors());
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
