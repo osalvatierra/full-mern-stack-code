@@ -34,6 +34,12 @@ app.options("*", (req, res) => {
   res.sendStatus(200);
 });
 
+// Routes
+const authRoutes = require("./routes/authRoutes");
+const quoteRoutes = require("./routes/quoteRoutes");
+app.use("/api/login", authRoutes);
+app.use("/api/quote", quoteRoutes);
+
 app.options("/api/login", (req, res) => {
   res.sendStatus(204); // Respond with HTTP status 204 (No Content)
 });
@@ -57,12 +63,6 @@ db.once("open", function () {
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 });
-
-// Routes
-const authRoutes = require("./routes/authRoutes");
-const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/login", authRoutes);
-app.use("/api/quote", quoteRoutes);
 
 // Error handling middleware
 // app.use((err, req, res) => {
