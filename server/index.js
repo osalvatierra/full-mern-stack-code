@@ -14,27 +14,36 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-// Manually handle preflight requests for CORS
-res.header(
-  "Access-Control-Allow-Origin",
-  "https://full-mern-stack-code.onrender.com"
+// Logging middleware to log only POST requests
+app.use(
+  morgan("dev", {
+    skip: function (req, res) {
+      return req.method !== "POST";
+    },
+  })
 );
-res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-// Routes
-const authRoutes = require("./routes/authRoutes");
-const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/login", authRoutes);
-app.use("/api/quote", quoteRoutes);
+app.use(
+  cors({
+    origin: "https://full-mern-stack-code.onrender.com",
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Origin,Content-Type,X-Auth-Token",
+    optionsSuccessStatus: 204,
+    sameSite: "none",
+  })
+);
 
-app.options("/api/login", (req, res) => {
+app.options("/api/login", cors(), (req, res) => {
   res.sendStatus(204); // Respond with HTTP status 204 (No Content)
 });
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", cors(), (req, res) => {
   res.json({ message: "POST request received" });
 });
+
+// Middleware to handle preflight requests
+app.options("*", cors());
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
@@ -51,6 +60,12 @@ db.once("open", function () {
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 });
+
+// Routes
+const authRoutes = require("./routes/authRoutes");
+const quoteRoutes = require("./routes/quoteRoutes");
+app.use("/api/login", authRoutes);
+app.use("/api/quote", quoteRoutes);
 
 // Error handling middleware
 // app.use((err, req, res) => {
