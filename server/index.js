@@ -14,15 +14,6 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-// Logging middleware to log only POST requests
-app.use(
-  morgan("dev", {
-    skip: function (req, res) {
-      return req.method !== "POST";
-    },
-  })
-);
-
 app.use(
   cors({
     origin: "https://full-mern-stack-code.onrender.com",
@@ -33,17 +24,6 @@ app.use(
     sameSite: "none",
   })
 );
-
-app.options("/api/login", cors(), (req, res) => {
-  res.sendStatus(204); // Respond with HTTP status 204 (No Content)
-});
-
-app.post("/api/login", cors(), (req, res) => {
-  res.json({ message: "POST request received" });
-});
-
-// Middleware to handle preflight requests
-app.options("*", cors());
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
