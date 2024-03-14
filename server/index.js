@@ -14,16 +14,29 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "https://full-mern-stack-code.onrender.com",
-    credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: "Origin,Content-Type,X-Auth-Token",
-    optionsSuccessStatus: 204,
-    sameSite: "none",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://full-mern-stack-code.onrender.com",
+//     credentials: true,
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     allowedHeaders: ["Origin", "Content-Type", "X-Auth-Token"],
+//     optionsSuccessStatus: 204,
+//     sameSite: "none",
+//   })
+// );
+
+// app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
