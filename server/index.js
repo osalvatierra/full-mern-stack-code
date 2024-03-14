@@ -26,7 +26,7 @@ app.use(cookieParser());
 // );
 
 // app.use(cors(corsOptions));
-
+app.use(cors());
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader(
@@ -57,7 +57,7 @@ app.use((req, res) => {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/login", authRoutes);
+app.use("/api/login", cors(), authRoutes);
 app.use("/api/quote", quoteRoutes);
 
 // Error handling middleware
