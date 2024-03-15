@@ -25,26 +25,23 @@ app.use(cookieParser());
 //   })
 // );
 
-// app.use(cors(corsOptions));
-app.use(cors());
-
-const options = {
-  origin: "https://full-mern-stack-code.onrender.com",
-};
-app.use(cors(options));
 app.use((req, res, next) => {
-  res.setHeader("Cache-Control", "no-cache"),
-    res.setHeader(
-      "Access-Control-Allow-Origin",
-      "https://full-mern-stack-code.onrender.com"
-    ),
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, OPTIONS, HEAD, POST, PUT"
-    ),
-    res.setHeader("Access-Control-Allow-Credentials", "true"),
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type"),
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, OPTIONS, HEAD, POST, PUT"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if ("OPTIONS" == req.method) {
+    res.sendStatus(200);
+  } else {
     next();
+  }
 });
 
 // Database connection
