@@ -25,8 +25,6 @@ app.use(cookieParser());
 //   })
 // );
 
-app.use(cors());
-
 // Manually handle preflight requests for CORS
 app.options("*", (req, res) => {
   res.header(
@@ -38,14 +36,30 @@ app.options("*", (req, res) => {
   res.sendStatus(200);
 });
 
-app.post("/api/login", cors(), (req, res) => {
-  // Handle all requests for /api/login route
-  res.json({ message: "Request received" });
+// app.post("/api/login", cors(), (req, res) => {
+//   // Handle all requests for /api/login route
+//   res.json({ message: "Request received" });
+// });
+
+const whitelist = ["https://full-mern-stack-code.onrender.com"];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+app.post("/", (req, res) => {
+  res.send({ message: "Hello World!" });
 });
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
-
 const quoteRoutes = require("./routes/quoteRoutes");
 app.use("/api/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
