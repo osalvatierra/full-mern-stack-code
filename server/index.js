@@ -44,7 +44,7 @@ app.options("*", (req, res) => {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.post("/", function (req, res, next) {
+app.post("/api/login", function (req, res, next) {
   // Handle the post for this route
   app.use("/api/login", authRoutes);
 });
