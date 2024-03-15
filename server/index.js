@@ -29,16 +29,26 @@ app.use(cors());
 
 // Manually handle preflight requests for CORS
 app.options("*", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   res.sendStatus(200);
 });
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.post("/api/login", authRoutes);
+app.post("/", function (req, res, next) {
+  // Handle the post for this route
+  app.use("/api/login", authRoutes);
+});
+
 app.use("/api/quote", quoteRoutes);
 
 // Database connection
