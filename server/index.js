@@ -27,20 +27,16 @@ app.use(cookieParser());
 
 app.use(cors());
 
-// app.use((req, res, next) => {
-//   res.setHeader("Cache-Control", "no-cache");
-//   res.setHeader(
-//     "Access-Control-Allow-Origin",
-//     "https://full-mern-stack-code.onrender.com"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, OPTIONS, HEAD, POST, PUT"
-//   );
-//   res.setHeader("Access-Control-Allow-Credentials", "true");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   next();
-// });
+// Manually handle preflight requests for CORS
+app.options("*", (req, res) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.sendStatus(200);
+});
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
