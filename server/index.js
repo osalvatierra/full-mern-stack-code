@@ -38,7 +38,7 @@ app.options("*", (req, res) => {
   res.sendStatus(200);
 });
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", cors(), (req, res) => {
   // Handle all requests for /api/login route
   res.json({ message: "Request received" });
 });
