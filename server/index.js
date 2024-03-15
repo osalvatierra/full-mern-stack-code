@@ -25,22 +25,28 @@ app.use(cookieParser());
 //   })
 // );
 
-// app.use(cors(corsOptions));
+app.use(cors());
 
-app.use((req, res, next) => {
-  res.setHeader("Cache-Control", "no-cache");
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://full-mern-stack-code.onrender.com"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, OPTIONS, HEAD, POST, PUT"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Cache-Control", "no-cache");
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     "https://full-mern-stack-code.onrender.com"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, OPTIONS, HEAD, POST, PUT"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   next();
+// });
+
+// Routes
+const authRoutes = require("./routes/authRoutes");
+const quoteRoutes = require("./routes/quoteRoutes");
+app.use("/api/login", authRoutes);
+app.use("/api/quote", quoteRoutes);
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
@@ -57,12 +63,6 @@ db.once("open", function () {
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 });
-
-// Routes
-const authRoutes = require("./routes/authRoutes");
-const quoteRoutes = require("./routes/quoteRoutes");
-app.post("/api/login", cors(), authRoutes);
-app.get("/api/quote", quoteRoutes);
 
 // Error handling middleware
 // app.use((err, req, res) => {
