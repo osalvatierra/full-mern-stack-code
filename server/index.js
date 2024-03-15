@@ -45,7 +45,7 @@ app.post("/api/login", cors(), (req, res) => {
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
-var r = new Routes(app);
+
 const quoteRoutes = require("./routes/quoteRoutes");
 app.use("/api/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
