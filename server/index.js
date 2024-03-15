@@ -38,6 +38,11 @@ app.options("*", (req, res) => {
   res.sendStatus(200);
 });
 
+app.post("/api/login", (req, res) => {
+  // Handle all requests for /api/login route
+  res.json({ message: "Request received" });
+});
+
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
