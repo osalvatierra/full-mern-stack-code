@@ -26,6 +26,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   inOtherRoute = false;
   console.log("route hit");
+  app.get("/login");
   try {
     // Check if the user exists in the database
     const user = await User.findOne({
