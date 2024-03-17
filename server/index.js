@@ -14,37 +14,31 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use(
-//   cors({
-//     origin: "https://full-mern-stack-code.onrender.com",
-//     credentials: true,
-//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     allowedHeaders: ["Origin", "Content-Type", "X-Auth-Token"],
-//     optionsSuccessStatus: 204,
-//     sameSite: "none",
-//   })
-// );
-
 app.use(
   cors({
     origin: "https://full-mern-stack-code.onrender.com",
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: ["Origin", "Content-Type", "X-Auth-Token"],
+    optionsSuccessStatus: 204,
+    sameSite: "none",
   })
 );
 
 // Manually handle preflight requests for CORS
-app.options("*", (req, res) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://full-mern-stack-code.onrender.com"
-  );
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  res.sendStatus(200);
-});
+// app.options("*", (req, res) => {
+//   res.header(
+//     "Access-Control-Allow-Origin",
+//     "https://full-mern-stack-code.onrender.com"
+//   );
+//   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   res.sendStatus(200);
+// });
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
