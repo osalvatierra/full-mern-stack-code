@@ -25,7 +25,7 @@ app.use(cookieParser());
 //   })
 // );
 
-app.use(cors());
+app.use(cors({ credentials: true }));
 
 // Manually handle preflight requests for CORS
 app.options("*", (req, res) => {
@@ -38,6 +38,7 @@ app.options("*", (req, res) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
+  res.setHeader("Access-Control-Allow-Credentials", true);
   res.sendStatus(200);
 });
 
