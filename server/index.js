@@ -25,7 +25,11 @@ app.use(cookieParser());
 //   })
 // );
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://full-mern-stack-code.onrender.com",
+  })
+);
 
 // Manually handle preflight requests for CORS
 app.options("*", (req, res) => {
@@ -40,14 +44,6 @@ app.options("*", (req, res) => {
   );
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.sendStatus(200);
-});
-
-app.options("*", (req, res) => {
-  res.set(
-    "Access-Control-Allow-Origin",
-    "https://full-mern-stack-code.onrender.com"
-  );
-  res.send("ok");
 });
 
 // Routes
