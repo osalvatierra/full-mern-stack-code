@@ -6,6 +6,11 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 
+// Middleware
+app.use(morgan("combined"));
+app.use(express.json());
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: "https://full-mern-stack-code.onrender.com",
@@ -17,28 +22,12 @@ app.use(
   })
 );
 
+// app.use((req, res) => {
+//   res.setHeader("Cache-Control", "no-cache");
+// });
+
 // Load environment variables from config.env file
 dotenv.config({ path: "./config.env" });
-
-// Middleware
-app.use(morgan("combined"));
-app.use(express.json());
-app.use(cookieParser());
-
-// Manually handle preflight requests for CORS
-// app.options("*", (req, res) => {
-//   res.header(
-//     "Access-Control-Allow-Origin",
-//     "https://full-mern-stack-code.onrender.com"
-//   );
-//   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-//   res.sendStatus(200);
-// });
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
@@ -50,10 +39,6 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("Connected successfully");
-});
-
-app.use((req, res) => {
-  res.setHeader("Cache-Control", "no-cache");
 });
 
 // Error handling middleware
