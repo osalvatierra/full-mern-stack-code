@@ -28,14 +28,12 @@ function AuthProvider({ children }) {
       const response = await fetch(
         "https://full-mern-stack-server.onrender.com/api/login",
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          origin: "https://full-mern-stack-code.onrender.com",
           method: "POST",
           mode: "cors",
           credentials: "include",
-
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             email,
             password,
