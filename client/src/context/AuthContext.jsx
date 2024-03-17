@@ -31,6 +31,7 @@ function AuthProvider({ children }) {
           headers: {
             "Content-Type": "application/json",
           },
+          origin: "https://full-mern-stack-server.onrender.com",
           method: "POST",
           mode: "cors",
           credentials: "include",

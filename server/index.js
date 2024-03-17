@@ -25,7 +25,7 @@ app.use(cookieParser());
 //   })
 // );
 
-app.use(cors({ credentials: true }));
+app.use(cors());
 
 // Manually handle preflight requests for CORS
 app.options("*", (req, res) => {
