@@ -6,14 +6,6 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 
-// Load environment variables from config.env file
-dotenv.config({ path: "./config.env" });
-
-// Middleware
-app.use(morgan("combined"));
-app.use(express.json());
-app.use(cookieParser());
-
 app.use(
   cors({
     origin: "https://full-mern-stack-code.onrender.com",
@@ -24,6 +16,14 @@ app.use(
     sameSite: "none",
   })
 );
+
+// Load environment variables from config.env file
+dotenv.config({ path: "./config.env" });
+
+// Middleware
+app.use(morgan("combined"));
+app.use(express.json());
+app.use(cookieParser());
 
 // Manually handle preflight requests for CORS
 // app.options("*", (req, res) => {
@@ -39,12 +39,6 @@ app.use(
 //   res.setHeader("Access-Control-Allow-Credentials", true);
 //   res.sendStatus(200);
 // });
-
-// Routes
-const authRoutes = require("./routes/authRoutes");
-const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/login", authRoutes);
-app.use("/api/quote", quoteRoutes);
 
 // Database connection
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
@@ -73,3 +67,9 @@ const PORT = 1337;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
+// Routes
+const authRoutes = require("./routes/authRoutes");
+const quoteRoutes = require("./routes/quoteRoutes");
+app.use("/api/login", authRoutes);
+app.use("/api/quote", quoteRoutes);
