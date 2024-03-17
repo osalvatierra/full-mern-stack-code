@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
-const cors = require("cors"); // Import the cors middleware
 
 let inOtherRoute = false;
 
@@ -69,10 +68,3 @@ exports.login = async (req, res) => {
     return res.json({ status: "error", user: false });
   }
 };
-
-// Add CORS options to the login route
-exports.loginWithCors = cors({
-  origin: "https://full-mern-stack-code.onrender.com",
-  methods: "POST", // Specify allowed methods (POST in this case)
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
-});
