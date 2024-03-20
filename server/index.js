@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 const app = express();
 const cors = require("cors");
 
@@ -24,6 +24,7 @@ app.use((req, res, next) => {
   }
   next();
 });
+
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 });
