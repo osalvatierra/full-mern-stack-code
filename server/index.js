@@ -1,17 +1,16 @@
 const express = require("express");
 const app = express();
-
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
-const cors = require("cors");
 
 // Middleware
 app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
+const cors = require("cors");
 app.use(
   cors({
     origin: "https://full-mern-stack-code.onrender.com",
@@ -23,9 +22,15 @@ app.use(
   })
 );
 
-// app.use((req, res) => {
-//   res.setHeader("Cache-Control", "no-cache");
-// });
+app.use((req, res) => {
+  res.setHeader("Cache-Control", "no-cache");
+});
+
+// Routes
+const authRoutes = require("./routes/authRoutes");
+const quoteRoutes = require("./routes/quoteRoutes");
+app.use("/api/login", authRoutes);
+app.use("/api/quote", quoteRoutes);
 
 // Load environment variables from config.env file
 dotenv.config({ path: "./config.env" });
@@ -53,9 +58,3 @@ const PORT = 1337;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
-
-// Routes
-const authRoutes = require("./routes/authRoutes");
-const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/login", authRoutes);
-app.use("/api/quote", quoteRoutes);
