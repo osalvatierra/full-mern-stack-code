@@ -46,7 +46,7 @@ db.once("open", function () {
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
 
-app.use("/login", authRoutes);
+app.use("https://full-mern-stack-server.onrender.com/api/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
 
 // Start server
