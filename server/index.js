@@ -27,6 +27,21 @@ app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 });
 
+// Set up the route handler
+router.post("/api/login", cors(), (req, res) => {
+  // Your route handler logic here
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  // Send the response
+  res.json({ success: true });
+});
+
 // Load environment variables from config.env file
 dotenv.config({ path: "./config.env" });
 
