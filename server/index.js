@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
@@ -10,7 +12,6 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-const cors = require("cors");
 app.use(
   cors({
     origin: "https://full-mern-stack-code.onrender.com",
@@ -25,12 +26,6 @@ app.use(
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 });
-
-// Routes
-const authRoutes = require("./routes/authRoutes");
-const quoteRoutes = require("./routes/quoteRoutes");
-app.post("/api/login", authRoutes);
-app.get("/api/quote", quoteRoutes);
 
 // Load environment variables from config.env file
 dotenv.config({ path: "./config.env" });
@@ -47,11 +42,12 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-// Error handling middleware
-// app.use((err, req, res) => {
-//   console.error(err.stack);
-//   res.status(500).json({ error: "Internal Server Error" });
-// });
+// Routes
+const authRoutes = require("./routes/authRoutes");
+const quoteRoutes = require("./routes/quoteRoutes");
+
+app.use("/api/login", authRoutes);
+app.use("/api/quote", quoteRoutes);
 
 // Start server
 const PORT = 1337;
