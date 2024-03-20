@@ -55,7 +55,6 @@ function AuthProvider({ children }) {
       }
     } catch (error) {
       console.error("Error:", error);
-      return email.json({ status: "error", user: false });
     }
   }
 
