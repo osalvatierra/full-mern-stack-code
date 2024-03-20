@@ -28,7 +28,7 @@ app.use((req, res) => {
 });
 
 // Set up the route handler
-router.post("/api/login", cors(), (req, res) => {
+app.post("/api/login", cors(), (req, res) => {
   // Your route handler logic here
   res.setHeader(
     "Access-Control-Allow-Origin",
