@@ -1,11 +1,16 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
 
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
+const cors = require("cors");
+
+// Middleware
+app.use(morgan("combined"));
+app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   cors({
@@ -17,11 +22,6 @@ app.use(
     sameSite: "none",
   })
 );
-
-// Middleware
-app.use(morgan("combined"));
-app.use(express.json());
-app.use(cookieParser());
 
 // app.use((req, res) => {
 //   res.setHeader("Cache-Control", "no-cache");
