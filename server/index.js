@@ -46,7 +46,7 @@ db.once("open", function () {
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
 
-app.use("/api/login", authRoutes);
+app.use("/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
 
 // Start server
