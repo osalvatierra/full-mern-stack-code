@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const app = express();
 const cors = require("cors");
 
@@ -12,17 +12,18 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "https://full-mern-stack-code.onrender.com",
-    credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    allowedHeaders: ["Origin", "Content-Type", "X-Auth-Token"],
-    optionsSuccessStatus: 204,
-    sameSite: "none",
-  })
-);
-
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested, Content-Type, Accept Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "POST, PUT, PATCH, GET, DELETE");
+    return res.status(200).json({});
+  }
+  next();
+});
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 });
@@ -46,7 +47,7 @@ db.once("open", function () {
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
 
-app.use("https://full-mern-stack-server.onrender.com/api/login", authRoutes);
+app.use("/api/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
 
 // Start server
