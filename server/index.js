@@ -29,8 +29,8 @@ app.use((req, res) => {
 // Routes
 const authRoutes = require("./routes/authRoutes");
 const quoteRoutes = require("./routes/quoteRoutes");
-app.use("/api/login", authRoutes);
-app.use("/api/quote", quoteRoutes);
+app.post("/api/login", authRoutes);
+app.get("/api/quote", quoteRoutes);
 
 // Load environment variables from config.env file
 dotenv.config({ path: "./config.env" });
