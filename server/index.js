@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const bycrypt = require("bcryptjs");
 const morgan = require("morgan");
+const dotenv = require("dotenv");
 // Use morgan for logging
 app.use(morgan("combined"));
 
