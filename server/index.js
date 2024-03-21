@@ -51,6 +51,17 @@ const quoteRoutes = require("./routes/quoteRoutes");
 app.use("/api/login", authRoutes);
 app.use("/api/quote", quoteRoutes);
 
+app.post("/login", (req, res) => {
+  console.log("Logout route called");
+  // Set CORS headers
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+});
+
 // Start server
 const PORT = 1337;
 app.listen(PORT, () => {
