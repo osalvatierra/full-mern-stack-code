@@ -58,6 +58,15 @@ exports.login = async (req, res) => {
         path: "/",
       });
 
+      res.setHeader(
+        "Access-Control-Allow-Origin",
+        "https://full-mern-stack-code.onrender.com"
+      );
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+      res.json({ success: true });
+
       res.json({ success: true, user });
       //return res.json({ status: "ok", authToken: token });
     } else {
