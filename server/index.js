@@ -12,16 +12,16 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: "https://full-mern-stack-code.onrender.com",
-  credentials: true,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: "Origin, Content-Type, X-Auth-Token",
-  optionsSuccessStatus: 204,
-  sameSite: "None",
-};
-
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "https://full-mern-stack-code.onrender.com",
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: ["Origin", "Content-Type", "X-Auth-Token"],
+    optionsSuccessStatus: 204,
+    sameSite: "none",
+  })
+);
 
 app.use((req, res) => {
   res.setHeader("Cache-Control", "no-cache");
