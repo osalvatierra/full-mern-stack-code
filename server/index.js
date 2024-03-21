@@ -14,15 +14,9 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
-// Load environment variables from config.env file
-dotenv.config({ path: "./config.env" });
-
-// Database connection
-mongoose.connect(process.env.DB_CONNECTION_STRING, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
+mongoose.connect(
+  `mongodb+srv://osalvatierra:YhG23YHt6WskEU6@cluster0.9edkxra.mongodb.net/login?retryWrites=true&w=majority`
+);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
