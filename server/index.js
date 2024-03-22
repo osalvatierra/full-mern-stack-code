@@ -168,8 +168,15 @@ app.post("/api/logout", (req, res) => {
 
   const authToken = req.cookies.xaccesstoken;
 
-  res.cookie(authToken, { expires: Date.now(0) });
-  res.clearCookie(authToken, { path: "/" });
+  res.cookie(authToken, "", { expires: new Date(0) });
+  // Set CORS headers
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://full-mern-stack-code.onrender.com"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.status(200).json({ message: "Logout successful" });
   res.status(200).json({ message: "Logout successful" });
 });
 

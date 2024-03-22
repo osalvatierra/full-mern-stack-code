@@ -63,6 +63,9 @@ function AuthProvider({ children }) {
 
   function logout() {
     dispatch({ type: "Logout" });
+    // Clear the cookie on the client-side
+    document.cookie =
+      "xaccesstoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   }
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
