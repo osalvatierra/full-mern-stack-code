@@ -52,7 +52,7 @@ function AuthProvider({ children }) {
         console.log(isAuthenticated);
         alert("Login Successful");
         dispatch({ type: "Login", payload: data.user });
-        console.log(isAuthenticated);
+        console.log(data.user);
       } else {
         alert("Please check your username and password ");
       }
