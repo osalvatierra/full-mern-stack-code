@@ -51,7 +51,7 @@ function AuthProvider({ children }) {
       if (data.success) {
         console.log(isAuthenticated);
         alert("Login Successful");
-        dispatch({ type: "Login", payload: data.user });
+        dispatch({ type: "Login", payload: data.body });
       } else {
         alert("Please check your username and password ");
       }
