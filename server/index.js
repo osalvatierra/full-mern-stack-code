@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
-const fs = require("fs");
-
 const cors = require("cors");
+const fs = require("fs");
 
 const mongoose = require("mongoose");
 const User = require("./models/user.model");
@@ -187,21 +186,22 @@ app.post("/login", (req, res) => {
 });
 
 // Define a route to serve the dynamic JSON file
-app.get('/cities', (req, res) => {
-  fs.readFile('./data/cities.json', 'utf8', (error, jsonData) => {
+app.get("/cities", (req, res) => {
+  fs.readFile("./data/cities.json", "utf8", (error, jsonData) => {
     if (error) {
-      console.error('Error reading JSON file:', error);
-      res.status(500).json({ error: 'Failed to import JSON file' });
+      console.error("Error reading JSON file:", error);
+      res.status(500).json({ error: "Failed to import JSON file" });
     } else {
       try {
         const parsedData = JSON.parse(jsonData);
         res.json(parsedData);
       } catch (parseError) {
-        console.error('Error parsing JSON data:', parseError);
-        res.status(500).json({ error: 'Failed to parse JSON data' });
+        console.error("Error parsing JSON data:", parseError);
+        res.status(500).json({ error: "Failed to parse JSON data" });
       }
     }
   });
+});
 
 app.listen(1337, () => {
   console.log("Server started on 1337");
