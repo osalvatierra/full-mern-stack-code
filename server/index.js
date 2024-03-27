@@ -184,6 +184,21 @@ app.post("/login", (req, res) => {
   console.log("Logout route called");
 });
 
+// Define a route that serves the dynamic JSON content
+app.get("/cities", (req, res) => {
+  // Generate the dynamic JSON content
+  const dynamicData = {
+    message: "This is a dynamic JSON response",
+    timestamp: new Date().toISOString(),
+  };
+
+  // Set the appropriate content type in the response header
+  res.setHeader("Content-Type", "application/json");
+
+  // Send the dynamic JSON content as the response
+  res.send(JSON.stringify(dynamicData));
+});
+
 app.listen(1337, () => {
   console.log("Server started on 1337");
 });
