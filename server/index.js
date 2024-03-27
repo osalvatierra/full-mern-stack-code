@@ -1,5 +1,7 @@
 const express = require("express");
+const fs = require("fs");
 const app = express();
+
 const cors = require("cors");
 
 const mongoose = require("mongoose");
@@ -184,20 +186,22 @@ app.post("/login", (req, res) => {
   console.log("Logout route called");
 });
 
-// Define a route that serves the dynamic JSON content
-app.get("/cities", (req, res) => {
-  // Generate the dynamic JSON content
-  const dynamicData = {
-    message: "This is a dynamic JSON response",
-    timestamp: new Date().toISOString(),
-  };
-
-  // Set the appropriate content type in the response header
-  res.setHeader("Content-Type", "application/json");
-
-  // Send the dynamic JSON content as the response
-  res.send(JSON.stringify(dynamicData));
-});
+// Define a route to serve the dynamic JSON file
+app.get('/cities', (req, res) => {
+  fs.readFile('./data/cities.json', 'utf8', (error, jsonData) => {
+    if (error) {
+      console.error('Error reading JSON file:', error);
+      res.status(500).json({ error: 'Failed to import JSON file' });
+    } else {
+      try {
+        const parsedData = JSON.parse(jsonData);
+        res.json(parsedData);
+      } catch (parseError) {
+        console.error('Error parsing JSON data:', parseError);
+        res.status(500).json({ error: 'Failed to parse JSON data' });
+      }
+    }
+  });
 
 app.listen(1337, () => {
   console.log("Server started on 1337");
