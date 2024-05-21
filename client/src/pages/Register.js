@@ -11,22 +11,19 @@ function App() {
   async function registerUser(event) {
     event.preventDefault();
     setQuote("");
-    const response = await fetch(
-      "https://full-mern-stack-server.onrender.com/api/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const response = await fetch("http://localhost:1338/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          quote,
-        }),
-      }
-    );
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        quote,
+      }),
+    });
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error);

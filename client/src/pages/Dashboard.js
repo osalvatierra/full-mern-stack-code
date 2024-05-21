@@ -16,16 +16,13 @@ const Dashboard = () => {
   useEffect(() => {
     if (isAuthenticated) {
       async function populateQuote() {
-        const req = await fetch(
-          "https://full-mern-stack-server.onrender.com/api/quote",
-          {
-            method: "GET",
-            credentials: "include", // Include credentials (cookies)
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const req = await fetch("http://localhost:1338/api/quote", {
+          method: "GET",
+          credentials: "include", // Include credentials (cookies)
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await req.json();
         console.log("test");
         console.log(data.status);
@@ -45,19 +42,16 @@ const Dashboard = () => {
 
   async function updateQuote(event) {
     event.preventDefault();
-    const req = await fetch(
-      "https://full-mern-stack-server.onrender.com/api/quote",
-      {
-        method: "POST",
-        credentials: "include", // Include credentials (cookies)
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          quote: tempQuote,
-        }),
-      }
-    );
+    const req = await fetch("http://localhost:1338/api/quote", {
+      method: "POST",
+      credentials: "include", // Include credentials (cookies)
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        quote: tempQuote,
+      }),
+    });
     const data = await req.json();
 
     if (data.status === "ok") {

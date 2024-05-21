@@ -32,7 +32,7 @@ db.once("open", function () {
 });
 
 const corsOptions = {
-  origin: "https://full-mern-stack-code.onrender.com",
+  origin: "http://localhost:3000",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Origin, Content-Type, X-Auth-Token",
@@ -203,6 +203,6 @@ app.get("/cities", (req, res) => {
   });
 });
 
-app.listen(1337, () => {
-  console.log("Server started on 1337");
+app.listen(1338, () => {
+  console.log("Server started on 1338");
 });
